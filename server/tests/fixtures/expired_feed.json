@@ -1,0 +1,11 @@
+[
+  {
+    "id": "EXP-TEST-01",
+    "title": "Completed Festival Special Service",
+    "summary": "Special night buses for Diwali shopping have concluded operations.",
+    "notice_type": "advisory",
+    "route_id": "BMTC-500D",
+    "valid_from": "2026-09-01T00:00:00Z",
+    "valid_to": "2026-09-10T23:59:59Z"
+  }
+]

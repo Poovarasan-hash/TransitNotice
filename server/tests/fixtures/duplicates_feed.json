@@ -1,0 +1,20 @@
+[
+  {
+    "id": "DUP-TEST-01",
+    "title": "Bus Stop Relocation at Majlis Park",
+    "summary": "Bus stop relocated 50 meters south due to foot overbridge construction.",
+    "notice_type": "diversion",
+    "route_id": "DTC-534",
+    "valid_from": "2026-10-01T00:00:00Z",
+    "valid_to": "2026-11-30T00:00:00Z"
+  },
+  {
+    "id": "DUP-TEST-01",
+    "title": "Bus Stop Relocation at Majlis Park",
+    "summary": "Bus stop relocated 50 meters south due to foot overbridge construction.",
+    "notice_type": "diversion",
+    "route_id": "DTC-534",
+    "valid_from": "2026-10-01T00:00:00Z",
+    "valid_to": "2026-11-30T00:00:00Z"
+  }
+]

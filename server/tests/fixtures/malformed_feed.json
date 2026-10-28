@@ -1,0 +1,15 @@
+[
+  {
+    "id": "CORRUPT-01",
+    "header": null,
+    "description": 12345,
+    "weird_field": "<script>alert(1)</script>",
+    "timestamp": "invalid-date-string"
+  },
+  null,
+  "just a string instead of object",
+  {
+    "notice_id": "CORRUPT-02",
+    "text": "Partially broken record without title or route"
+  }
+]

@@ -1,0 +1,20 @@
+[
+  {
+    "id": "REV-TEST-01",
+    "title": "Bridge Reconstruction Notice (Initial)",
+    "summary": "Traffic diversion via Ring Road until Oct 20.",
+    "notice_type": "diversion",
+    "route_id": "MTC-25G",
+    "valid_from": "2026-10-01T00:00:00Z",
+    "valid_to": "2026-10-20T23:59:59Z"
+  },
+  {
+    "id": "REV-TEST-01",
+    "title": "Bridge Reconstruction Notice (Extended)",
+    "summary": "Traffic diversion via Ring Road extended until Nov 15 due to monsoon delay.",
+    "notice_type": "diversion",
+    "route_id": "MTC-25G",
+    "valid_from": "2026-10-01T00:00:00Z",
+    "valid_to": "2026-11-15T23:59:59Z"
+  }
+]
