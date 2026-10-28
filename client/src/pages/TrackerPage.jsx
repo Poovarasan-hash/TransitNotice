@@ -127,7 +127,7 @@ export function TrackerPage({ initialParams = {} }) {
   };
 
   return (
-    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-6">
+    <div className="w-full px-4 sm:px-8 lg:px-12 py-6 space-y-6">
       
       {/* Top Header & Refresh Action Bar */}
       <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
@@ -225,7 +225,7 @@ export function TrackerPage({ initialParams = {} }) {
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
         
         {/* Map Column (Hidden on mobile if user chose 'list' only) */}
-        <div className={`lg:col-span-7 h-[550px] lg:h-[720px] sticky top-20 ${activeViewMode === 'list' ? 'hidden lg:block' : 'block'}`}>
+        <div className={`lg:col-span-7 xl:col-span-8 h-[600px] lg:h-[760px] sticky top-20 ${activeViewMode === 'list' ? 'hidden lg:block' : 'block'}`}>
           <MapView
             selectedState={selectedState !== 'All' ? selectedState : null}
             selectedDistrict={selectedDistrict !== 'All' ? selectedDistrict : null}
@@ -241,7 +241,7 @@ export function TrackerPage({ initialParams = {} }) {
         </div>
 
         {/* Notices List Column (Hidden on mobile if user chose 'map' only) */}
-        <div className={`lg:col-span-5 space-y-4 ${activeViewMode === 'map' ? 'hidden lg:block' : 'block'}`}>
+        <div className={`lg:col-span-5 xl:col-span-4 space-y-4 ${activeViewMode === 'map' ? 'hidden lg:block' : 'block'}`}>
           
           <div className="flex items-center justify-between text-xs text-slate-400 px-1">
             <span className="font-semibold text-slate-200">

@@ -40,9 +40,9 @@ export function HomePage({ onNavigate, onSelectNotice }) {
         {/* Subtle decorative background grid */}
         <div className="absolute inset-0 opacity-10 bg-[radial-gradient(#06B6D4_1px,transparent_1px)] [background-size:16px_16px] pointer-events-none"></div>
 
-        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col lg:flex-row items-center gap-12">
+        <div className="relative w-full px-4 sm:px-8 lg:px-12 xl:px-16 flex flex-col lg:flex-row items-center justify-between gap-12">
           {/* Left Text Column */}
-          <div className="flex-1 text-center lg:text-left space-y-6">
+          <div className="flex-1 text-center lg:text-left space-y-6 max-w-3xl">
             <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-cyan-950/80 border border-cyan-500/30 text-cyan-400 text-xs font-bold tracking-wide">
               <span className="w-2 h-2 rounded-full bg-cyan-400 animate-pulse"></span>
               India Public Transport Service Update Tracker
@@ -173,7 +173,7 @@ export function HomePage({ onNavigate, onSelectNotice }) {
       </section>
 
       {/* Live System Metrics Bar */}
-      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <section className="w-full px-4 sm:px-8 lg:px-12 xl:px-16">
         <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 p-6 bg-slate-900 border border-slate-800 rounded-2xl shadow-xl">
           <div className="p-4 rounded-xl bg-slate-950 border border-slate-800/80">
             <div className="text-2xl sm:text-3xl font-black text-cyan-400 font-mono">
@@ -210,7 +210,7 @@ export function HomePage({ onNavigate, onSelectNotice }) {
       </section>
 
       {/* Featured Active Advisories */}
-      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-6">
+      <section className="w-full px-4 sm:px-8 lg:px-12 xl:px-16 space-y-6">
         <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
           <div>
             <h2 className="text-2xl font-black text-slate-100">
@@ -236,7 +236,7 @@ export function HomePage({ onNavigate, onSelectNotice }) {
             Loading latest transport advisories...
           </div>
         ) : (
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-4">
             {featuredNotices.map(notice => (
               <NoticeCard
                 key={notice.id}
@@ -252,7 +252,7 @@ export function HomePage({ onNavigate, onSelectNotice }) {
       </section>
 
       {/* Core Architectural Pillars */}
-      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+      <section className="w-full px-4 sm:px-8 lg:px-12 xl:px-16 py-8">
         <div className="text-center max-w-2xl mx-auto mb-10">
           <h2 className="text-2xl font-black text-slate-100">
             Engineered for Public Transport Integrity

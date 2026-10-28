@@ -80,7 +80,7 @@ export function DashboardPage({ onNavigate }) {
   };
 
   return (
-    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-8">
+    <div className="w-full px-4 sm:px-8 lg:px-12 py-8 space-y-8">
       
       {/* Top Greeting & User Overview */}
       <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 p-6 bg-slate-900 border border-slate-800 rounded-2xl shadow-xl">
