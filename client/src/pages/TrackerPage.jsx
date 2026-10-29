@@ -5,6 +5,7 @@ import { FilterBar } from '../components/FilterBar';
 import { NoticeCard } from '../components/NoticeCard';
 import { NoticeDetailModal } from '../components/NoticeDetailModal';
 import { CoverageLevelBadge } from '../components/StatusBadge';
+import { FLEET_SHOWCASE } from '../data/fleetShowcase';
 import { 
   RefreshCw, AlertCircle, AlertTriangle, Search, Info, Map, List, CheckCircle, 
   Bus, Train, Compass, Radio, ArrowLeft, ChevronRight, Eye, Navigation, MapPin, Layers
@@ -470,39 +471,56 @@ export function TrackerPage({ initialParams = {} }) {
                     <span>Click any route to track</span>
                   </div>
 
-                  <div className="space-y-2.5 overflow-y-auto max-h-[660px] pr-1">
-                    {routes.map(r => (
-                      <div
-                        key={r.id}
-                        onClick={() => handleSelectRoute(r)}
-                        className="p-3.5 bg-slate-900 hover:bg-slate-800/80 border border-slate-800 hover:border-cyan-500/50 rounded-xl transition cursor-pointer shadow-lg group"
-                      >
-                        <div className="flex items-center justify-between mb-1.5">
-                          <div className="flex items-center gap-2">
-                            <div className="w-6 h-6 rounded-md bg-cyan-950 border border-cyan-800 flex items-center justify-center text-cyan-400">
-                              {r.transport_type === 'metro' ? <Train className="w-3.5 h-3.5" /> : <Bus className="w-3.5 h-3.5" />}
+                  <div className="space-y-3 overflow-y-auto max-h-[680px] pr-1">
+                    {routes.map(r => {
+                      const matchedFleet = FLEET_SHOWCASE.find(f => f.routeNumber === r.route_short_name || f.id === r.id);
+                      const imgUrl = matchedFleet?.image || (r.transport_type === 'metro' 
+                        ? 'https://images.unsplash.com/photo-1517649763962-0c623266ddc0?auto=format&fit=crop&w=400&q=80'
+                        : 'https://images.unsplash.com/photo-1544620347-c4fd4a3d5957?auto=format&fit=crop&w=400&q=80');
+
+                      return (
+                        <div
+                          key={r.id}
+                          onClick={() => handleSelectRoute(r)}
+                          className="p-4 bg-slate-900 hover:bg-slate-850 border border-slate-800 hover:border-cyan-500/50 rounded-2xl transition cursor-pointer shadow-xl group space-y-3"
+                        >
+                          <div className="flex items-center gap-3">
+                            <div className="w-20 h-16 rounded-xl overflow-hidden bg-slate-950 shrink-0 border border-slate-800 relative">
+                              <img src={imgUrl} alt={r.route_short_name} className="w-full h-full object-cover group-hover:scale-105 transition-transform" />
+                              <span className="absolute bottom-1 left-1 px-1.5 py-0.2 bg-slate-950/90 text-cyan-400 font-bold text-[9px] rounded">
+                                {r.transport_type}
+                              </span>
                             </div>
-                            <span className="text-sm font-black text-slate-100 group-hover:text-cyan-300">
-                              {r.route_short_name}
+
+                            <div className="flex-1 min-w-0">
+                              <div className="flex items-center justify-between gap-1">
+                                <span className="text-base font-black text-white group-hover:text-cyan-400 transition-colors">
+                                  {r.route_short_name}
+                                </span>
+                                <span className="text-xs font-bold px-2 py-0.5 rounded bg-cyan-950 text-cyan-300 border border-cyan-800/50">
+                                  {r.district}
+                                </span>
+                              </div>
+                              <p className="text-xs text-slate-300 font-medium truncate mt-0.5">
+                                {r.route_long_name}
+                              </p>
+                              <div className="text-[11px] text-slate-400 flex items-center gap-1.5 mt-0.5">
+                                <span>{r.origin || 'Start'}</span>
+                                <span>→</span>
+                                <span>{r.destination || 'End'}</span>
+                              </div>
+                            </div>
+                          </div>
+
+                          <div className="pt-2 border-t border-slate-800/80 flex items-center justify-between text-xs">
+                            <span className="text-slate-400 font-medium">{r.agency_name || 'State RTC'}</span>
+                            <span className="text-cyan-400 font-bold group-hover:translate-x-1 transition-transform flex items-center gap-1">
+                              View Stops & Live Map <ChevronRight className="w-3.5 h-3.5" />
                             </span>
                           </div>
-                          <span className="text-[10px] font-bold px-2 py-0.5 rounded bg-slate-950 text-slate-400 border border-slate-800">
-                            {r.district}
-                          </span>
                         </div>
-
-                        <div className="text-xs text-slate-300 font-medium">
-                          {r.route_long_name}
-                        </div>
-
-                        <div className="mt-2 pt-2 border-t border-slate-800/80 flex items-center justify-between text-[11px] text-slate-400">
-                          <span>{r.agency_name || 'State RTC'}</span>
-                          <span className="text-cyan-400 font-semibold group-hover:translate-x-1 transition-transform flex items-center gap-1">
-                            Track Route & Stops <ChevronRight className="w-3 h-3" />
-                          </span>
-                        </div>
-                      </div>
-                    ))}
+                      );
+                    })}
                   </div>
                 </div>
               )}
@@ -522,53 +540,66 @@ export function TrackerPage({ initialParams = {} }) {
                 </span>
               </div>
 
-              <div className="space-y-2.5 overflow-y-auto max-h-[660px] pr-1">
-                {vehicles.map(v => (
-                  <div
-                    key={v.id}
-                    className={`p-3.5 bg-slate-900 border rounded-xl transition shadow-lg space-y-3 ${
-                      selectedVehicleId === v.id ? 'border-cyan-500 bg-slate-850' : 'border-slate-800 hover:border-slate-700'
-                    }`}
-                  >
-                    <div className="flex items-center justify-between">
-                      <div className="flex items-center gap-2">
-                        <span className={`w-2 h-2 rounded-full ${v.status === 'delayed' ? 'bg-red-400' : 'bg-emerald-400 animate-pulse'}`}></span>
-                        <span className="text-sm font-black text-slate-100">{v.vehicle_label}</span>
-                      </div>
-                      <span className={`text-[10px] font-bold px-2 py-0.5 rounded ${
-                        v.status === 'delayed' ? 'bg-red-950 text-red-300 border border-red-700' : 'bg-emerald-950 text-emerald-300 border border-emerald-700'
-                      }`}>
-                        {v.status === 'delayed' ? 'Delayed' : 'On Schedule'}
-                      </span>
-                    </div>
+              <div className="space-y-3 overflow-y-auto max-h-[680px] pr-1">
+                {vehicles.map(v => {
+                  const matchedFleet = FLEET_SHOWCASE.find(f => f.routeNumber === v.route_short_name || f.vehicleId === v.id);
+                  const imgUrl = matchedFleet?.image || 'https://images.unsplash.com/photo-1544620347-c4fd4a3d5957?auto=format&fit=crop&w=400&q=80';
 
-                    <div className="grid grid-cols-2 gap-2 text-xs">
-                      <div className="p-2 bg-slate-950 rounded-lg">
-                        <span className="text-[10px] text-slate-500 block">Assigned Corridor</span>
-                        <strong className="text-slate-200">{v.route_short_name || v.route_id}</strong>
-                      </div>
-                      <div className="p-2 bg-slate-950 rounded-lg">
-                        <span className="text-[10px] text-slate-500 block">Instant Speed</span>
-                        <strong className="text-cyan-400 font-mono">{v.speed_kmh || 28} km/h</strong>
-                      </div>
-                    </div>
+                  return (
+                    <div
+                      key={v.id}
+                      className={`p-4 bg-slate-900 border rounded-2xl transition shadow-xl space-y-3 ${
+                        selectedVehicleId === v.id ? 'border-cyan-500 bg-slate-850 ring-2 ring-cyan-500/20' : 'border-slate-800 hover:border-slate-700'
+                      }`}
+                    >
+                      <div className="flex items-center gap-3">
+                        <div className="w-16 h-14 rounded-xl overflow-hidden bg-slate-950 shrink-0 border border-slate-800">
+                          <img src={imgUrl} alt={v.vehicle_label} className="w-full h-full object-cover" />
+                        </div>
 
-                    <div className="flex items-center justify-between text-[11px] text-slate-400 pt-1">
-                      <span>Agency: {v.agency_name || 'Official RT Agency'}</span>
+                        <div className="flex-1 min-w-0">
+                          <div className="flex items-center justify-between">
+                            <span className="text-sm font-black text-white">{v.vehicle_label}</span>
+                            <span className={`text-[10px] font-bold px-2 py-0.5 rounded-full ${
+                              v.status === 'delayed' ? 'bg-red-950 text-red-300 border border-red-700' : 'bg-emerald-950 text-emerald-300 border border-emerald-700'
+                            }`}>
+                              {v.status === 'delayed' ? 'Delayed (+8m)' : 'On Schedule'}
+                            </span>
+                          </div>
+                          <div className="text-xs text-slate-300 font-semibold mt-0.5">
+                            Route: {v.route_short_name || v.route_id}
+                          </div>
+                          <div className="text-[11px] text-slate-400 truncate">
+                            {v.agency_name || 'Official RT Agency'}
+                          </div>
+                        </div>
+                      </div>
+
+                      <div className="grid grid-cols-2 gap-2 text-xs pt-1">
+                        <div className="p-2 bg-slate-950 rounded-xl border border-slate-800/80">
+                          <span className="text-[10px] text-slate-500 block">Instant Speed</span>
+                          <strong className="text-cyan-400 font-mono text-sm">{v.speed_kmh || 26} km/h</strong>
+                        </div>
+                        <div className="p-2 bg-slate-950 rounded-xl border border-slate-800/80">
+                          <span className="text-[10px] text-slate-500 block">GPS Telemetry</span>
+                          <strong className="text-emerald-400 text-xs">🟢 Live Active</strong>
+                        </div>
+                      </div>
+
                       <button
                         onClick={() => setSelectedVehicleId(v.id)}
-                        className={`px-3 py-1.5 rounded-lg text-xs font-bold flex items-center gap-1.5 transition cursor-pointer ${
+                        className={`w-full py-2 px-3 rounded-xl text-xs font-bold flex items-center justify-center gap-1.5 transition cursor-pointer ${
                           selectedVehicleId === v.id
-                            ? 'bg-amber-600 text-white'
+                            ? 'bg-amber-600 text-white shadow-lg'
                             : 'bg-cyan-600 hover:bg-cyan-500 text-white shadow-md'
                         }`}
                       >
-                        <Navigation className="w-3 h-3" />
-                        {selectedVehicleId === v.id ? 'Following Bus' : 'Follow on Map'}
+                        <Navigation className="w-3.5 h-3.5" />
+                        {selectedVehicleId === v.id ? 'Following Bus Live on Map' : 'Live Follow Bus on Map'}
                       </button>
                     </div>
-                  </div>
-                ))}
+                  );
+                })}
               </div>
             </div>
           )}
