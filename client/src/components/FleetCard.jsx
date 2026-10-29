@@ -17,7 +17,7 @@ export function FleetCard({ fleet, onTrackMap, onExploreRoute, onViewNotices }) 
       <div className="bg-slate-50/90 px-5 py-2.5 border-b border-slate-200 flex items-center justify-between text-xs">
         <div className="flex items-center gap-2">
           <span className="w-2.5 h-2.5 rounded-full bg-emerald-500 animate-ping"></span>
-          <span className="font-extrabold text-[#0B172E] uppercase tracking-wide">
+          <span className="font-extrabold text-[slate-900] uppercase tracking-wide">
             {fleet.operator}
           </span>
           <span className="text-slate-400">•</span>
@@ -51,7 +51,7 @@ export function FleetCard({ fleet, onTrackMap, onExploreRoute, onViewNotices }) 
           )}
 
           {/* Badge over image */}
-          <div className="absolute top-2 left-2 bg-[#0B172E]/90 backdrop-blur px-2.5 py-1 rounded-md border border-slate-700 text-[10px] font-black text-cyan-300 uppercase tracking-wider shadow">
+          <div className="absolute top-2 left-2 bg-white/95 backdrop-blur px-2.5 py-1 rounded-md border border-slate-200 text-[10px] font-black text-slate-800 uppercase tracking-wider shadow-sm">
             {fleet.type === 'metro' ? 'Rapid Metro' : 'AC City Bus'}
           </div>
 
@@ -64,7 +64,7 @@ export function FleetCard({ fleet, onTrackMap, onExploreRoute, onViewNotices }) 
         <div className="flex-1 space-y-3 w-full">
           <div>
             <div className="flex flex-wrap items-center gap-2">
-              <span className="text-xl sm:text-2xl font-black text-[#0B172E] group-hover:text-teal-700 transition-colors">
+              <span className="text-xl sm:text-2xl font-black text-[slate-900] group-hover:text-teal-700 transition-colors">
                 {fleet.serviceName}
               </span>
               <span className="px-3 py-0.5 rounded-full text-xs font-extrabold bg-teal-50 text-teal-800 border border-teal-300 shadow-sm">
@@ -79,7 +79,7 @@ export function FleetCard({ fleet, onTrackMap, onExploreRoute, onViewNotices }) 
           {/* Departure & Arrival Schedule Bar */}
           <div className="flex items-center gap-4 py-2.5 border-y border-slate-100">
             <div>
-              <div className="text-xl font-black text-[#0B172E] font-mono tracking-tight">
+              <div className="text-xl font-black text-[slate-900] font-mono tracking-tight">
                 {fleet.departureTime}
               </div>
               <div className="text-xs text-slate-500 font-medium truncate max-w-[130px]">
@@ -98,7 +98,7 @@ export function FleetCard({ fleet, onTrackMap, onExploreRoute, onViewNotices }) 
             </div>
 
             <div className="text-right">
-              <div className="text-xl font-black text-[#0B172E] font-mono tracking-tight">
+              <div className="text-xl font-black text-[slate-900] font-mono tracking-tight">
                 {fleet.arrivalTime}
               </div>
               <div className="text-xs text-slate-500 font-medium truncate max-w-[130px]">
@@ -138,7 +138,7 @@ export function FleetCard({ fleet, onTrackMap, onExploreRoute, onViewNotices }) 
 
           <div>
             <div className="text-[10px] font-bold text-slate-400 uppercase tracking-wider">Fare / Smart Ticket</div>
-            <div className="text-base font-black text-[#0B172E]">
+            <div className="text-base font-black text-[slate-900]">
               {fleet.fare}
             </div>
           </div>

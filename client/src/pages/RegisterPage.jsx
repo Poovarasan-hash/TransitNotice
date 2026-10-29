@@ -62,7 +62,7 @@ export function RegisterPage({ onNavigate }) {
           <div className="w-12 h-12 rounded-2xl bg-teal-50 text-teal-600 border border-teal-200 flex items-center justify-center mx-auto mb-3 shadow-sm">
             <Bus className="w-6 h-6" />
           </div>
-          <h1 className="text-2xl font-black text-[#0B172E]">
+          <h1 className="text-2xl font-black text-[slate-900]">
             Create Commuter Account
           </h1>
           <p className="text-xs text-slate-500">

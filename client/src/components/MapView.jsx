@@ -607,7 +607,7 @@ export function MapView({
           <div className="flex items-center justify-between pb-2 border-b border-slate-200">
             <div className="flex items-center gap-2">
               <span className="w-2.5 h-2.5 rounded-full bg-emerald-500 animate-ping"></span>
-              <span className="font-black text-[#0B172E] text-sm">{activeVehicle.vehicle_label}</span>
+              <span className="font-black text-slate-900 text-sm">{activeVehicle.vehicle_label}</span>
             </div>
             <button
               onClick={() => setActiveVehicle(null)}
@@ -631,8 +631,8 @@ export function MapView({
           </div>
 
           <div className="text-[11px] text-slate-700 space-y-1">
-            <div>Route: <strong className="text-[#0B172E]">{activeVehicle.route_short_name || activeVehicle.route_id}</strong></div>
-            <div>Authority: <strong className="text-[#0B172E]">{activeVehicle.agency_name || 'Transit Corporation'}</strong></div>
+            <div>Route: <strong className="text-slate-900">{activeVehicle.route_short_name || activeVehicle.route_id}</strong></div>
+            <div>Authority: <strong className="text-slate-900">{activeVehicle.agency_name || 'Transit Corporation'}</strong></div>
           </div>
 
           <div className="pt-2 border-t border-slate-200 flex items-center gap-2">
@@ -662,7 +662,7 @@ export function MapView({
 
       {/* Floating Legend (Bottom Right) */}
       <div className="absolute bottom-4 right-4 z-[1000] bg-white/95 border border-slate-200 p-3.5 rounded-2xl shadow-xl backdrop-blur text-xs max-w-xs text-slate-700">
-        <div className="flex items-center gap-1.5 font-black text-[#0B172E] mb-2 pb-1.5 border-b border-slate-200">
+        <div className="flex items-center gap-1.5 font-black text-slate-900 mb-2 pb-1.5 border-b border-slate-200">
           <Layers className="w-3.5 h-3.5 text-teal-600" />
           Interactive Legend
         </div>

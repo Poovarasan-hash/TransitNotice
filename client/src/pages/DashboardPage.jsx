@@ -102,25 +102,25 @@ export function DashboardPage({ onNavigate }) {
   return (
     <div className="w-full px-4 sm:px-8 lg:px-12 py-8 space-y-8 bg-[#F8FAFC] text-slate-900">
       
-      {/* Top Greeting & User Overview (Navy Blue Card) */}
-      <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 p-6 sm:p-8 bg-[#0B172E] border border-slate-800 rounded-3xl shadow-xl text-white">
+      {/* Top Greeting & User Overview (Clean White Card) */}
+      <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 p-6 sm:p-8 bg-white border border-slate-200 rounded-3xl shadow-sm text-slate-900">
         <div className="flex items-center gap-4">
-          <div className="w-14 h-14 rounded-2xl bg-gradient-to-tr from-teal-500 to-cyan-500 flex items-center justify-center text-white text-2xl font-black shadow-lg shadow-teal-500/30">
+          <div className="w-14 h-14 rounded-2xl bg-gradient-to-tr from-teal-500 to-cyan-500 flex items-center justify-center text-white text-2xl font-black shadow-md shadow-teal-500/20">
             {user ? user?.username?.charAt(0).toUpperCase() : 'G'}
           </div>
           <div>
             <div className="flex items-center gap-2">
-              <h1 className="text-xl sm:text-2xl font-black text-white">
+              <h1 className="text-xl sm:text-2xl font-black text-slate-900">
                 {user ? `Welcome back, ${user.username}` : 'Commuter Intelligence Dashboard'}
               </h1>
               <span className={`text-[10px] uppercase font-bold px-2.5 py-0.5 rounded-full border ${
-                user ? 'bg-teal-950 text-teal-300 border-teal-600/50' : 'bg-amber-950 text-amber-300 border-amber-600/50'
+                user ? 'bg-teal-50 text-teal-800 border-teal-200' : 'bg-amber-50 text-amber-800 border-amber-200'
               }`}>
                 {user ? (user.role || 'commuter') : 'Guest Explorer'}
               </span>
             </div>
-            <p className="text-xs sm:text-sm text-slate-300 mt-1">
-              Personalized transport intelligence • Monitored Corridor: <strong className="text-cyan-300">{formState.district}, {formState.state}</strong>
+            <p className="text-xs sm:text-sm text-slate-600 mt-1">
+              Personalized transport intelligence • Monitored Corridor: <strong className="text-teal-700 font-bold">{formState.district}, {formState.state}</strong>
             </p>
           </div>
         </div>
@@ -130,7 +130,7 @@ export function DashboardPage({ onNavigate }) {
             <button
               onClick={handleDemoLogin}
               disabled={demoLoggingIn}
-              className="px-4 py-2 bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-500 hover:to-teal-500 text-white rounded-xl text-xs font-bold transition shadow-lg flex items-center gap-1.5 cursor-pointer"
+              className="px-4 py-2 bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-500 hover:to-teal-500 text-white rounded-xl text-xs font-bold transition shadow-sm flex items-center gap-1.5 cursor-pointer"
             >
               <Sparkles className="w-3.5 h-3.5" />
               {demoLoggingIn ? 'Logging In...' : 'One-Click Demo Login'}
@@ -138,7 +138,7 @@ export function DashboardPage({ onNavigate }) {
           ) : (
             <button
               onClick={logout}
-              className="px-4 py-2 bg-slate-800 hover:bg-rose-950/80 hover:text-rose-200 text-slate-200 rounded-xl text-xs font-bold transition border border-slate-700 flex items-center gap-1.5 cursor-pointer"
+              className="px-4 py-2 bg-slate-100 hover:bg-rose-50 hover:text-rose-700 text-slate-700 rounded-xl text-xs font-bold transition border border-slate-200 flex items-center gap-1.5 cursor-pointer"
             >
               <LogOut className="w-3.5 h-3.5" />
               Sign Out
@@ -147,7 +147,7 @@ export function DashboardPage({ onNavigate }) {
 
           <button
             onClick={() => onNavigate('tracker', { state: formState.state, district: formState.district })}
-            className="px-4 py-2 bg-gradient-to-r from-teal-600 to-cyan-600 hover:from-teal-500 hover:to-cyan-500 text-white rounded-xl text-xs font-bold transition shadow-lg flex items-center gap-1.5 cursor-pointer"
+            className="px-4 py-2 bg-gradient-to-r from-teal-600 to-cyan-600 hover:from-teal-500 hover:to-cyan-500 text-white rounded-xl text-xs font-bold transition shadow-sm flex items-center gap-1.5 cursor-pointer"
           >
             <Bus className="w-3.5 h-3.5" />
             Track Corridor on Map
@@ -224,7 +224,7 @@ export function DashboardPage({ onNavigate }) {
         {/* Left Column: Preferences Manager */}
         <div className="lg:col-span-5 bg-white border border-slate-200/90 rounded-3xl p-6 shadow-sm space-y-5 text-slate-900">
           <div className="border-b border-slate-100 pb-3 flex items-center justify-between">
-            <h2 className="text-base font-black text-[#0B172E] flex items-center gap-2">
+            <h2 className="text-base font-black text-[slate-900] flex items-center gap-2">
               <Heart className="w-4 h-4 text-rose-500" />
               My Commuter Preferences
             </h2>
@@ -324,7 +324,7 @@ export function DashboardPage({ onNavigate }) {
         <div className="lg:col-span-7 space-y-6">
           <div className="bg-white border border-slate-200/90 rounded-3xl p-6 shadow-sm space-y-4">
             <div className="flex items-center justify-between border-b border-slate-100 pb-3">
-              <h2 className="text-base font-black text-[#0B172E] flex items-center gap-2">
+              <h2 className="text-base font-black text-[slate-900] flex items-center gap-2">
                 <Bell className="w-4 h-4 text-teal-600" />
                 Advisories in Your Commute Zone ({userNotices.length})
               </h2>
@@ -353,7 +353,7 @@ export function DashboardPage({ onNavigate }) {
           {/* Agency Freshness & System Health Table */}
           <div className="bg-white border border-slate-200/90 rounded-3xl p-6 shadow-sm space-y-4 text-xs">
             <div className="flex items-center justify-between border-b border-slate-100 pb-3">
-              <h2 className="text-base font-black text-[#0B172E] flex items-center gap-2">
+              <h2 className="text-base font-black text-[slate-900] flex items-center gap-2">
                 <ShieldCheck className="w-4 h-4 text-teal-600" />
                 Connected Transport Agencies & Health
               </h2>
@@ -368,7 +368,7 @@ export function DashboardPage({ onNavigate }) {
                   className="py-3 flex items-center justify-between hover:bg-slate-50 px-2 rounded-xl transition cursor-pointer group"
                 >
                   <div>
-                    <div className="font-bold text-[#0B172E] group-hover:text-teal-700 transition-colors">{agency.name}</div>
+                    <div className="font-bold text-[slate-900] group-hover:text-teal-700 transition-colors">{agency.name}</div>
                     <div className="text-[11px] text-slate-500">{agency.status_message}</div>
                   </div>
                   <div className="text-right">

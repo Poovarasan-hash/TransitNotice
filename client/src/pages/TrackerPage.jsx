@@ -187,7 +187,7 @@ export function TrackerPage({ initialParams = {} }) {
       {/* Top Header & Refresh Action Bar */}
       <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
         <div>
-          <h1 className="text-2xl sm:text-3xl font-black text-[#0B172E] flex items-center gap-2">
+          <h1 className="text-2xl sm:text-3xl font-black text-[slate-900] flex items-center gap-2">
             Transit Service Update Tracker
             <span className="text-xs font-bold px-3 py-1 rounded-full bg-teal-50 text-teal-800 border border-teal-200">
               National Feed
@@ -347,7 +347,7 @@ export function TrackerPage({ initialParams = {} }) {
           {activeRightTab === 'notices' && (
             <div className="space-y-3">
               <div className="flex items-center justify-between text-xs text-slate-500 px-1 font-semibold">
-                <span className="text-[#0B172E] font-bold">
+                <span className="text-[slate-900] font-bold">
                   {notices.length} Active {notices.length === 1 ? 'Advisory' : 'Advisories'}
                 </span>
                 <span>Audited Hash Diffing</span>
@@ -365,7 +365,7 @@ export function TrackerPage({ initialParams = {} }) {
                   <div className="w-12 h-12 rounded-full bg-slate-100 flex items-center justify-center mx-auto text-slate-400">
                     <Search className="w-6 h-6" />
                   </div>
-                  <h3 className="text-base font-bold text-[#0B172E]">No Advisories Match Your Filter</h3>
+                  <h3 className="text-base font-bold text-[slate-900]">No Advisories Match Your Filter</h3>
                   <p className="text-xs text-slate-500 max-w-sm mx-auto">
                     No active interruptions or diversions found for the chosen criteria.
                   </p>
@@ -412,7 +412,7 @@ export function TrackerPage({ initialParams = {} }) {
                   </div>
 
                   <div>
-                    <h3 className="text-lg font-black text-[#0B172E]">
+                    <h3 className="text-lg font-black text-[slate-900]">
                       {selectedRoute.route_short_name}: {selectedRoute.route_long_name}
                     </h3>
                     <div className="text-xs text-slate-600 mt-1 flex flex-wrap items-center gap-2 font-medium">
@@ -467,7 +467,7 @@ export function TrackerPage({ initialParams = {} }) {
                 /* List of All Corridors (RedBus Style Cards) */
                 <div className="space-y-3">
                   <div className="flex items-center justify-between text-xs text-slate-500 px-1 font-semibold">
-                    <span className="text-[#0B172E] font-bold">
+                    <span className="text-[slate-900] font-bold">
                       {routes.length} Monitored Corridors
                     </span>
                     <span>Click any route to track</span>
@@ -489,14 +489,14 @@ export function TrackerPage({ initialParams = {} }) {
                           <div className="flex items-center gap-3">
                             <div className="w-20 h-16 rounded-xl overflow-hidden bg-slate-100 shrink-0 border border-slate-200 relative">
                               <img src={imgUrl} alt={r.route_short_name} className="w-full h-full object-cover group-hover:scale-105 transition-transform" />
-                              <span className="absolute bottom-1 left-1 px-1.5 py-0.2 bg-[#0B172E]/90 text-cyan-300 font-bold text-[9px] rounded">
+                              <span className="absolute bottom-1 left-1 px-1.5 py-0.5 bg-white/95 text-slate-800 font-bold text-[9px] rounded border border-slate-200 shadow-sm">
                                 {r.transport_type}
                               </span>
                             </div>
 
                             <div className="flex-1 min-w-0">
                               <div className="flex items-center justify-between gap-1">
-                                <span className="text-base font-black text-[#0B172E] group-hover:text-teal-700 transition-colors">
+                                <span className="text-base font-black text-[slate-900] group-hover:text-teal-700 transition-colors">
                                   {r.route_short_name}
                                 </span>
                                 <span className="text-xs font-bold px-2 py-0.5 rounded bg-teal-50 text-teal-800 border border-teal-200">
@@ -533,7 +533,7 @@ export function TrackerPage({ initialParams = {} }) {
           {activeRightTab === 'vehicles' && (
             <div className="space-y-3">
               <div className="flex items-center justify-between text-xs text-slate-500 px-1 font-semibold">
-                <span className="text-[#0B172E] font-bold">
+                <span className="text-[slate-900] font-bold">
                   {vehicles.length} Real-Time GPS Transponders
                 </span>
                 <span className="text-emerald-700 font-bold flex items-center gap-1">
@@ -561,7 +561,7 @@ export function TrackerPage({ initialParams = {} }) {
 
                         <div className="flex-1 min-w-0">
                           <div className="flex items-center justify-between">
-                            <span className="text-sm font-black text-[#0B172E]">{v.vehicle_label}</span>
+                            <span className="text-sm font-black text-[slate-900]">{v.vehicle_label}</span>
                             <span className={`text-[10px] font-bold px-2 py-0.5 rounded-full ${
                               v.status === 'delayed' ? 'bg-rose-50 text-rose-700 border border-rose-200' : 'bg-emerald-50 text-emerald-800 border border-emerald-200'
                             }`}>

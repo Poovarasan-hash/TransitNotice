@@ -56,7 +56,7 @@ export function NoticeCard({ notice, onSelect }) {
         </div>
 
         {/* Title */}
-        <h3 className="text-base font-extrabold text-[#0B172E] group-hover:text-teal-700 transition-colors line-clamp-2 mb-2">
+        <h3 className="text-base font-extrabold text-[slate-900] group-hover:text-teal-700 transition-colors line-clamp-2 mb-2">
           {notice.title}
         </h3>
 

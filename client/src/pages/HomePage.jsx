@@ -87,32 +87,37 @@ export function HomePage({ onNavigate, onSelectNotice }) {
   return (
     <div className="space-y-12 pb-16 bg-[#F8FAFC] text-slate-900">
       
-      {/* HERO SECTION: DEEP NAVY BLUE HEADER */}
-      <section className="relative overflow-hidden bg-gradient-to-b from-[#0B172E] via-[#0F1E36] to-[#0B172E] border-b border-slate-800 pt-12 pb-16 text-white shadow-xl">
+      {/* HERO SECTION: USER TRANSIT PANORAMA BACKGROUND */}
+      <section 
+        className="relative overflow-hidden border-b border-slate-200 pt-12 pb-16 shadow-sm bg-cover bg-bottom bg-no-repeat"
+        style={{
+          backgroundImage: `url('/hero-transit-bg.png')`,
+          backgroundColor: '#F8FAFC'
+        }}
+      >
+        {/* Subtle light overlay so headline & search matrix remain 100% crystal-clear while buses, metro, bridges & transit route lines shine through */}
+        <div className="absolute inset-0 bg-gradient-to-b from-white/80 via-white/55 to-white/85 pointer-events-none"></div>
         
-        {/* Subtle grid pattern */}
-        <div className="absolute inset-0 opacity-15 bg-[radial-gradient(#38BDF8_1px,transparent_1px)] [background-size:20px_20px] pointer-events-none"></div>
-
-        <div className="relative w-full px-4 sm:px-8 lg:px-12 xl:px-16 space-y-8">
+        <div className="relative w-full px-4 sm:px-8 lg:px-12 xl:px-16 space-y-7">
           
           {/* Top Tagline */}
           <div className="text-center max-w-3xl mx-auto space-y-3">
-            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-cyan-950/80 border border-cyan-500/50 text-cyan-300 text-xs font-bold tracking-wide shadow-lg">
-              <span className="w-2 h-2 rounded-full bg-cyan-400 animate-ping"></span>
+            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white/95 backdrop-blur border border-teal-200 text-teal-800 text-xs font-bold tracking-wide shadow-sm">
+              <span className="w-2 h-2 rounded-full bg-teal-500 animate-ping"></span>
               India's Official Public Transport Tracker & Service Advisory Network
             </div>
 
-            <h1 className="text-3xl sm:text-5xl font-black text-white tracking-tight leading-tight">
-              Live Bus, Metro & Rail <span className="text-transparent bg-clip-text bg-gradient-to-r from-teal-400 via-cyan-300 to-sky-300">Tracker & Updates</span>
+            <h1 className="text-3xl sm:text-5xl font-black text-slate-900 tracking-tight leading-tight">
+              Live Bus, Metro & Rail <span className="text-teal-600">Tracker & Updates</span>
             </h1>
 
-            <p className="text-sm sm:text-base text-slate-300 max-w-2xl mx-auto leading-relaxed">
+            <p className="text-sm sm:text-base text-slate-700 max-w-2xl mx-auto leading-relaxed font-semibold">
               Real-time moving vehicles, route diversions, cancellations, and official government advisories across Delhi, Bengaluru, Mumbai, Chennai, and Kerala.
             </p>
           </div>
 
-          {/* RedBus-Style Booking & Search Bar (Clean White Card on Deep Navy Banner) */}
-          <div className="max-w-5xl mx-auto bg-white rounded-3xl p-5 sm:p-7 shadow-2xl border border-slate-200 text-slate-900">
+          {/* RedBus-Style Booking & Search Bar (Clean White Card with Soft Shadow) */}
+          <div className="max-w-5xl mx-auto bg-white/95 backdrop-blur-md rounded-3xl p-5 sm:p-7 shadow-2xl border border-slate-200 text-slate-900">
             <form onSubmit={handleSearchSubmit} className="space-y-4">
               
               {/* Mode Selector Tabs on Top of Search Bar */}
@@ -130,7 +135,7 @@ export function HomePage({ onNavigate, onSelectNotice }) {
                     className={`px-4 py-2 rounded-xl text-xs font-extrabold transition flex items-center gap-1.5 shrink-0 cursor-pointer ${
                       transportMode === mode.id
                         ? 'bg-teal-700 text-white shadow-md shadow-teal-700/20'
-                        : 'bg-slate-100 text-slate-700 hover:bg-slate-200 border border-slate-200'
+                        : 'bg-white text-slate-700 hover:bg-slate-100 border border-slate-200 shadow-sm'
                     }`}
                   >
                     <mode.icon className="w-4 h-4" />
@@ -144,7 +149,7 @@ export function HomePage({ onNavigate, onSelectNotice }) {
                 
                 {/* From Input */}
                 <div className="md:col-span-5 relative">
-                  <label className="text-xs font-bold text-slate-600 block mb-1">
+                  <label className="text-xs font-bold text-slate-700 block mb-1">
                     From (Origin / Terminal)
                   </label>
                   <div className="relative">
@@ -154,7 +159,7 @@ export function HomePage({ onNavigate, onSelectNotice }) {
                       value={fromLocation}
                       onChange={(e) => setFromLocation(e.target.value)}
                       placeholder="e.g. Mehrauli, Silk Board, Anna Square..."
-                      className="w-full pl-10 pr-3 py-3 bg-slate-50 border border-slate-300 rounded-xl text-sm text-slate-900 placeholder-slate-400 focus:outline-none focus:border-teal-600 focus:bg-white font-semibold transition"
+                      className="w-full pl-10 pr-3 py-3 bg-white border border-slate-300 rounded-xl text-sm text-slate-900 placeholder-slate-400 focus:outline-none focus:border-teal-600 focus:ring-2 focus:ring-teal-500/20 font-semibold transition shadow-sm"
                     />
                   </div>
                 </div>
@@ -165,7 +170,7 @@ export function HomePage({ onNavigate, onSelectNotice }) {
                     type="button"
                     onClick={swapLocations}
                     title="Swap Origin and Destination"
-                    className="w-10 h-10 rounded-full bg-slate-100 hover:bg-teal-600 text-slate-700 hover:text-white border border-slate-300 flex items-center justify-center transition shadow cursor-pointer group"
+                    className="w-10 h-10 rounded-full bg-white hover:bg-teal-600 text-slate-700 hover:text-white border border-slate-300 flex items-center justify-center transition shadow-sm cursor-pointer group"
                   >
                     <ArrowLeftRight className="w-4 h-4 group-hover:rotate-180 transition-transform duration-300" />
                   </button>
@@ -173,7 +178,7 @@ export function HomePage({ onNavigate, onSelectNotice }) {
 
                 {/* To Input */}
                 <div className="md:col-span-4 relative">
-                  <label className="text-xs font-bold text-slate-600 block mb-1">
+                  <label className="text-xs font-bold text-slate-700 block mb-1">
                     To (Destination / Stop)
                   </label>
                   <div className="relative">
@@ -183,7 +188,7 @@ export function HomePage({ onNavigate, onSelectNotice }) {
                       value={toLocation}
                       onChange={(e) => setToLocation(e.target.value)}
                       placeholder="e.g. Anand Vihar, Hebbal, Poonamallee..."
-                      className="w-full pl-10 pr-3 py-3 bg-slate-50 border border-slate-300 rounded-xl text-sm text-slate-900 placeholder-slate-400 focus:outline-none focus:border-teal-600 focus:bg-white font-semibold transition"
+                      className="w-full pl-10 pr-3 py-3 bg-white border border-slate-300 rounded-xl text-sm text-slate-900 placeholder-slate-400 focus:outline-none focus:border-teal-600 focus:ring-2 focus:ring-teal-500/20 font-semibold transition shadow-sm"
                     />
                   </div>
                 </div>
@@ -192,7 +197,7 @@ export function HomePage({ onNavigate, onSelectNotice }) {
                 <div className="md:col-span-2 pt-3 md:pt-5">
                   <button
                     type="submit"
-                    className="w-full py-3.5 bg-gradient-to-r from-teal-600 via-cyan-600 to-teal-600 hover:from-teal-500 hover:to-cyan-500 text-white font-black rounded-xl text-sm flex items-center justify-center gap-2 shadow-lg shadow-teal-600/30 transition cursor-pointer"
+                    className="w-full py-3.5 bg-gradient-to-r from-teal-600 via-cyan-600 to-teal-600 hover:from-teal-500 hover:to-cyan-500 text-white font-black rounded-xl text-sm flex items-center justify-center gap-2 shadow-md shadow-teal-600/30 transition cursor-pointer"
                   >
                     <Search className="w-4 h-4" />
                     <span>Search</span>
@@ -201,7 +206,7 @@ export function HomePage({ onNavigate, onSelectNotice }) {
               </div>
 
               {/* Popular Quick Corridors */}
-              <div className="flex flex-wrap items-center gap-2 text-xs pt-2 border-t border-slate-100">
+              <div className="flex flex-wrap items-center gap-2 text-xs pt-2 border-t border-slate-200">
                 <span className="text-slate-500 font-bold">Popular Routes:</span>
                 {[
                   { label: 'BMTC 500D (Silk Board ⇄ Hebbal)', from: 'Silk Board', to: 'Hebbal' },
@@ -217,7 +222,7 @@ export function HomePage({ onNavigate, onSelectNotice }) {
                       setToLocation(r.to);
                       onNavigate('tracker', { query: `${r.from} ${r.to}` });
                     }}
-                    className="px-3 py-1 rounded-lg bg-slate-100 hover:bg-teal-50 text-slate-700 hover:text-teal-800 border border-slate-200 text-xs font-semibold transition cursor-pointer"
+                    className="px-3 py-1 rounded-lg bg-white hover:bg-teal-50 text-slate-700 hover:text-teal-800 border border-slate-200 text-xs font-semibold transition cursor-pointer shadow-sm"
                   >
                     {r.label}
                   </button>
@@ -227,19 +232,19 @@ export function HomePage({ onNavigate, onSelectNotice }) {
           </div>
 
           {/* Real Transport Trust Badges */}
-          <div className="flex flex-wrap items-center justify-center gap-6 text-xs text-slate-300 pt-2">
-            <span className="flex items-center gap-2 text-slate-200 font-semibold">
-              <ShieldCheck className="w-4 h-4 text-emerald-400" />
+          <div className="flex flex-wrap items-center justify-center gap-6 text-xs text-slate-500 pt-2 font-medium">
+            <span className="flex items-center gap-2 text-slate-700 font-bold">
+              <ShieldCheck className="w-4 h-4 text-emerald-600" />
               100% Official Agency Feeds Only
             </span>
             <span>•</span>
-            <span className="flex items-center gap-2 text-slate-200 font-semibold">
-              <RefreshCw className="w-4 h-4 text-cyan-300" />
+            <span className="flex items-center gap-2 text-slate-700 font-bold">
+              <RefreshCw className="w-4 h-4 text-teal-600" />
               Idempotent SHA-256 Hash Auditing
             </span>
             <span>•</span>
-            <span className="flex items-center gap-2 text-slate-200 font-semibold">
-              <MapPin className="w-4 h-4 text-amber-300" />
+            <span className="flex items-center gap-2 text-slate-700 font-bold">
+              <MapPin className="w-4 h-4 text-amber-600" />
               Transparent District Coverage Directory
             </span>
           </div>
@@ -258,7 +263,7 @@ export function HomePage({ onNavigate, onSelectNotice }) {
             <div className="text-3xl sm:text-4xl font-black text-teal-700 font-mono group-hover:scale-105 transition-transform">
               {metrics.activeNotices || 12}
             </div>
-            <div className="text-sm font-bold text-[#0B172E] mt-1 flex items-center justify-between">
+            <div className="text-sm font-bold text-[slate-900] mt-1 flex items-center justify-between">
               Active Advisories
               <ArrowRight className="w-4 h-4 text-teal-600 opacity-0 group-hover:opacity-100 transition-opacity" />
             </div>
@@ -273,7 +278,7 @@ export function HomePage({ onNavigate, onSelectNotice }) {
             <div className="text-3xl sm:text-4xl font-black text-cyan-700 font-mono group-hover:scale-105 transition-transform">
               {metrics.monitoredRoutes || 14}
             </div>
-            <div className="text-sm font-bold text-[#0B172E] mt-1 flex items-center justify-between">
+            <div className="text-sm font-bold text-[slate-900] mt-1 flex items-center justify-between">
               Monitored Corridors
               <ArrowRight className="w-4 h-4 text-cyan-600 opacity-0 group-hover:opacity-100 transition-opacity" />
             </div>
@@ -288,7 +293,7 @@ export function HomePage({ onNavigate, onSelectNotice }) {
             <div className="text-3xl sm:text-4xl font-black text-indigo-700 font-mono group-hover:scale-105 transition-transform">
               {metrics.connectedAgencies || 6}
             </div>
-            <div className="text-sm font-bold text-[#0B172E] mt-1 flex items-center justify-between">
+            <div className="text-sm font-bold text-[slate-900] mt-1 flex items-center justify-between">
               Connected RTCs
               <ArrowRight className="w-4 h-4 text-indigo-600 opacity-0 group-hover:opacity-100 transition-opacity" />
             </div>
@@ -303,7 +308,7 @@ export function HomePage({ onNavigate, onSelectNotice }) {
             <div className="text-3xl sm:text-4xl font-black text-emerald-700 font-mono group-hover:scale-105 transition-transform">
               {metrics.trackedVehicles || 8}
             </div>
-            <div className="text-sm font-bold text-[#0B172E] mt-1 flex items-center justify-between">
+            <div className="text-sm font-bold text-[slate-900] mt-1 flex items-center justify-between">
               Active Transponders
               <ArrowRight className="w-4 h-4 text-emerald-600 opacity-0 group-hover:opacity-100 transition-opacity" />
             </div>
@@ -320,7 +325,7 @@ export function HomePage({ onNavigate, onSelectNotice }) {
               <span className="w-2 h-2 rounded-full bg-emerald-500 animate-ping"></span>
               Live Transponder Telemetry Active
             </div>
-            <h2 className="text-2xl sm:text-3xl font-black text-[#0B172E]">
+            <h2 className="text-2xl sm:text-3xl font-black text-[slate-900]">
               Active Public Transport Fleets
             </h2>
             <p className="text-xs sm:text-sm text-slate-500 mt-1">
@@ -453,7 +458,7 @@ export function HomePage({ onNavigate, onSelectNotice }) {
             <Bus className="w-3.5 h-3.5 text-teal-600" />
             Modern Public Transit Fleet
           </div>
-          <h2 className="text-2xl sm:text-3xl font-black text-[#0B172E]">
+          <h2 className="text-2xl sm:text-3xl font-black text-[slate-900]">
             India's Transit Fleet Spotlight
           </h2>
           <p className="text-xs sm:text-sm text-slate-500 mt-1">
@@ -470,13 +475,13 @@ export function HomePage({ onNavigate, onSelectNotice }) {
                 alt="Volvo AC Electric City Bus"
                 className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
               />
-              <span className="absolute top-3 left-3 px-2.5 py-1 rounded-lg bg-[#0B172E]/90 text-cyan-300 border border-slate-700 text-[10px] font-bold uppercase tracking-wider shadow">
+              <span className="absolute top-3 left-3 px-2.5 py-1 rounded-lg bg-white/95 text-slate-800 border border-slate-200 text-[10px] font-bold uppercase tracking-wider shadow-sm backdrop-blur">
                 Electric Low-Floor
               </span>
             </div>
             <div className="p-6 space-y-2">
               <div className="text-xs font-bold text-teal-700 uppercase tracking-wide">BMTC Vajra & DTC Electric</div>
-              <h3 className="text-lg font-bold text-[#0B172E]">Volvo 9400 AC Electric City Bus</h3>
+              <h3 className="text-lg font-bold text-[slate-900]">Volvo 9400 AC Electric City Bus</h3>
               <p className="text-xs text-slate-600 leading-relaxed">
                 Zero emission low-floor transit buses operating on high-density urban corridors with onboard GPS transponders and automatic ramp access.
               </p>
@@ -500,13 +505,13 @@ export function HomePage({ onNavigate, onSelectNotice }) {
                 alt="BEST AC Double Decker Bus"
                 className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
               />
-              <span className="absolute top-3 left-3 px-2.5 py-1 rounded-lg bg-[#0B172E]/90 text-cyan-300 border border-slate-700 text-[10px] font-bold uppercase tracking-wider shadow">
+              <span className="absolute top-3 left-3 px-2.5 py-1 rounded-lg bg-white/95 text-slate-800 border border-slate-200 text-[10px] font-bold uppercase tracking-wider shadow-sm backdrop-blur">
                 Double Decker EV
               </span>
             </div>
             <div className="p-6 space-y-2">
               <div className="text-xs font-bold text-rose-600 uppercase tracking-wide">BEST Mumbai Metropolitan</div>
-              <h3 className="text-lg font-bold text-[#0B172E]">Switch EiV22 AC Double Decker</h3>
+              <h3 className="text-lg font-bold text-[slate-900]">Switch EiV22 AC Double Decker</h3>
               <p className="text-xs text-slate-600 leading-relaxed">
                 India's premier air-conditioned electric double-decker bus serving Mumbai's high-capacity arterial routes with dual staircases and regenerative braking.
               </p>
@@ -530,13 +535,13 @@ export function HomePage({ onNavigate, onSelectNotice }) {
                 alt="DMRC Metro Rapid Transit"
                 className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
               />
-              <span className="absolute top-3 left-3 px-2.5 py-1 rounded-lg bg-[#0B172E]/90 text-indigo-300 border border-slate-700 text-[10px] font-bold uppercase tracking-wider shadow">
+              <span className="absolute top-3 left-3 px-2.5 py-1 rounded-lg bg-white/95 text-slate-800 border border-slate-200 text-[10px] font-bold uppercase tracking-wider shadow-sm backdrop-blur">
                 Rapid Metro Rail
               </span>
             </div>
             <div className="p-6 space-y-2">
               <div className="text-xs font-bold text-indigo-700 uppercase tracking-wide">DMRC Delhi & CMRL Chennai</div>
-              <h3 className="text-lg font-bold text-[#0B172E]">Alstom 8-Car Metro Trainset</h3>
+              <h3 className="text-lg font-bold text-[slate-900]">Alstom 8-Car Metro Trainset</h3>
               <p className="text-xs text-slate-600 leading-relaxed">
                 Automated high-speed metropolitan rail operating every 3 minutes with platform screen doors, regenerative braking, and real-time station countdowns.
               </p>
@@ -558,7 +563,7 @@ export function HomePage({ onNavigate, onSelectNotice }) {
       <section className="w-full px-4 sm:px-8 lg:px-12 xl:px-16 space-y-6">
         <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
           <div>
-            <h2 className="text-2xl sm:text-3xl font-black text-[#0B172E]">
+            <h2 className="text-2xl sm:text-3xl font-black text-[slate-900]">
               Recent Priority Service Advisories
             </h2>
             <p className="text-xs sm:text-sm text-slate-500 mt-1">
@@ -599,7 +604,7 @@ export function HomePage({ onNavigate, onSelectNotice }) {
       {/* CORE ARCHITECTURAL PILLARS */}
       <section className="w-full px-4 sm:px-8 lg:px-12 xl:px-16 py-8">
         <div className="text-center max-w-2xl mx-auto mb-10">
-          <h2 className="text-2xl sm:text-3xl font-black text-[#0B172E]">
+          <h2 className="text-2xl sm:text-3xl font-black text-[slate-900]">
             Engineered for Public Transport Integrity
           </h2>
           <p className="text-xs sm:text-sm text-slate-500 mt-2">
@@ -612,7 +617,7 @@ export function HomePage({ onNavigate, onSelectNotice }) {
             <div className="w-12 h-12 rounded-2xl bg-teal-50 border border-teal-200 flex items-center justify-center text-teal-700">
               <ShieldCheck className="w-6 h-6" />
             </div>
-            <h3 className="text-lg font-bold text-[#0B172E]">No Scraping or Hallucinated Feeds</h3>
+            <h3 className="text-lg font-bold text-[slate-900]">No Scraping or Hallucinated Feeds</h3>
             <p className="text-xs text-slate-600 leading-relaxed">
               We never scrape protected portals, bypass logins, or fabricate artificial vehicle locations. All notices carry official source URLs, hash signatures, and observed timestamps.
             </p>
@@ -622,7 +627,7 @@ export function HomePage({ onNavigate, onSelectNotice }) {
             <div className="w-12 h-12 rounded-2xl bg-emerald-50 border border-emerald-200 flex items-center justify-center text-emerald-700">
               <RefreshCw className="w-6 h-6" />
             </div>
-            <h3 className="text-lg font-bold text-[#0B172E]">Idempotent Revision Diffing</h3>
+            <h3 className="text-lg font-bold text-[slate-900]">Idempotent Revision Diffing</h3>
             <p className="text-xs text-slate-600 leading-relaxed">
               Every refresh compares canonical SHA-256 hashes against previous observations, detecting extensions, revisions, and withdrawals with complete audit history.
             </p>
@@ -632,7 +637,7 @@ export function HomePage({ onNavigate, onSelectNotice }) {
             <div className="w-12 h-12 rounded-2xl bg-amber-50 border border-amber-200 flex items-center justify-center text-amber-700">
               <MapPin className="w-6 h-6" />
             </div>
-            <h3 className="text-lg font-bold text-[#0B172E]">District-Level Truth in Coverage</h3>
+            <h3 className="text-lg font-bold text-[slate-900]">District-Level Truth in Coverage</h3>
             <p className="text-xs text-slate-600 leading-relaxed">
               Where live tracking is unavailable, districts are transparently labelled as “Schedule/Advisory only” or “Live data unavailable”. We never claim blanket national coverage.
             </p>

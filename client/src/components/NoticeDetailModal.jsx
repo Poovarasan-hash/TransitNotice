@@ -34,24 +34,24 @@ export function NoticeDetailModal({ noticeId, onClose }) {
         className="relative w-full max-w-2xl bg-white border border-slate-200 rounded-3xl shadow-2xl overflow-hidden max-h-[90vh] flex flex-col"
         onClick={(e) => e.stopPropagation()}
       >
-        {/* Deep Navy Header */}
-        <div className="flex items-center justify-between px-6 py-4.5 bg-[#0B172E] text-white sticky top-0 z-10 shadow-sm">
+        {/* Clean White Modal Header */}
+        <div className="flex items-center justify-between px-6 py-4.5 bg-white border-b border-slate-200 text-slate-900 sticky top-0 z-10 shadow-sm">
           <div className="flex items-center gap-2.5">
-            <div className="w-8 h-8 rounded-xl bg-teal-500/20 text-teal-400 flex items-center justify-center border border-teal-500/30">
+            <div className="w-8 h-8 rounded-xl bg-teal-50 text-teal-700 flex items-center justify-center border border-teal-200 shadow-sm">
               <ShieldCheck className="w-4.5 h-4.5" />
             </div>
             <div>
-              <h2 className="text-base font-bold text-white tracking-tight">
+              <h2 className="text-base font-black text-slate-900 tracking-tight">
                 Official Transit Advisory Bulletin
               </h2>
-              <p className="text-[11px] text-slate-300">
+              <p className="text-[11px] text-slate-500 font-medium">
                 Verified Government Transit Feed & Provenance
               </p>
             </div>
           </div>
           <button
             onClick={onClose}
-            className="p-1.5 text-slate-300 hover:text-white hover:bg-white/10 rounded-xl transition"
+            className="p-1.5 text-slate-400 hover:text-slate-700 hover:bg-slate-100 rounded-xl transition"
             aria-label="Close modal"
           >
             <X className="w-5 h-5" />
@@ -89,7 +89,7 @@ export function NoticeDetailModal({ noticeId, onClose }) {
                   </span>
                 </div>
 
-                <h1 className="text-xl font-black text-[#0B172E] leading-snug">
+                <h1 className="text-xl font-black text-[slate-900] leading-snug">
                   {data.notice.title}
                 </h1>
               </div>
