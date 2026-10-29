@@ -100,27 +100,27 @@ export function DashboardPage({ onNavigate }) {
   };
 
   return (
-    <div className="w-full px-4 sm:px-8 lg:px-12 py-8 space-y-8">
+    <div className="w-full px-4 sm:px-8 lg:px-12 py-8 space-y-8 bg-[#F8FAFC] text-slate-900">
       
-      {/* Top Greeting & User Overview */}
-      <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 p-6 bg-slate-900 border border-slate-800 rounded-2xl shadow-xl">
+      {/* Top Greeting & User Overview (Navy Blue Card) */}
+      <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 p-6 sm:p-8 bg-[#0B172E] border border-slate-800 rounded-3xl shadow-xl text-white">
         <div className="flex items-center gap-4">
-          <div className="w-14 h-14 rounded-2xl bg-gradient-to-tr from-cyan-600 to-blue-700 flex items-center justify-center text-white text-2xl font-bold shadow-lg shadow-cyan-600/30">
+          <div className="w-14 h-14 rounded-2xl bg-gradient-to-tr from-teal-500 to-cyan-500 flex items-center justify-center text-white text-2xl font-black shadow-lg shadow-teal-500/30">
             {user ? user?.username?.charAt(0).toUpperCase() : 'G'}
           </div>
           <div>
             <div className="flex items-center gap-2">
-              <h1 className="text-xl sm:text-2xl font-black text-slate-100">
+              <h1 className="text-xl sm:text-2xl font-black text-white">
                 {user ? `Welcome back, ${user.username}` : 'Commuter Intelligence Dashboard'}
               </h1>
-              <span className={`text-[10px] uppercase font-bold px-2 py-0.5 rounded-full border ${
-                user ? 'bg-cyan-950 text-cyan-400 border-cyan-800' : 'bg-amber-950 text-amber-400 border-amber-800'
+              <span className={`text-[10px] uppercase font-bold px-2.5 py-0.5 rounded-full border ${
+                user ? 'bg-teal-950 text-teal-300 border-teal-600/50' : 'bg-amber-950 text-amber-300 border-amber-600/50'
               }`}>
                 {user ? (user.role || 'commuter') : 'Guest Explorer'}
               </span>
             </div>
-            <p className="text-xs text-slate-400 mt-1">
-              Personalized transport intelligence • Monitored Corridor: <strong className="text-cyan-400">{formState.district}, {formState.state}</strong>
+            <p className="text-xs sm:text-sm text-slate-300 mt-1">
+              Personalized transport intelligence • Monitored Corridor: <strong className="text-cyan-300">{formState.district}, {formState.state}</strong>
             </p>
           </div>
         </div>
@@ -138,7 +138,7 @@ export function DashboardPage({ onNavigate }) {
           ) : (
             <button
               onClick={logout}
-              className="px-4 py-2 bg-slate-800 hover:bg-rose-950/50 hover:text-rose-300 text-slate-300 rounded-xl text-xs font-bold transition border border-slate-700 flex items-center gap-1.5 cursor-pointer"
+              className="px-4 py-2 bg-slate-800 hover:bg-rose-950/80 hover:text-rose-200 text-slate-200 rounded-xl text-xs font-bold transition border border-slate-700 flex items-center gap-1.5 cursor-pointer"
             >
               <LogOut className="w-3.5 h-3.5" />
               Sign Out
@@ -147,7 +147,7 @@ export function DashboardPage({ onNavigate }) {
 
           <button
             onClick={() => onNavigate('tracker', { state: formState.state, district: formState.district })}
-            className="px-4 py-2 bg-cyan-600 hover:bg-cyan-500 text-white rounded-xl text-xs font-bold transition shadow-lg flex items-center gap-1.5 cursor-pointer"
+            className="px-4 py-2 bg-gradient-to-r from-teal-600 to-cyan-600 hover:from-teal-500 hover:to-cyan-500 text-white rounded-xl text-xs font-bold transition shadow-lg flex items-center gap-1.5 cursor-pointer"
           >
             <Bus className="w-3.5 h-3.5" />
             Track Corridor on Map
@@ -155,66 +155,66 @@ export function DashboardPage({ onNavigate }) {
         </div>
       </div>
 
-      {/* Interactive Summary Metrics Cards */}
+      {/* Interactive Summary Metrics Cards (Clean White Cards) */}
       <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
         <button
           type="button"
           onClick={() => onNavigate('tracker', { state: formState.state, district: formState.district })}
-          className="p-4 bg-slate-900 hover:bg-slate-850 border border-slate-800 hover:border-cyan-500/50 rounded-2xl text-left transition cursor-pointer group shadow-lg"
+          className="p-5 bg-white hover:bg-slate-50 border border-slate-200/90 hover:border-teal-400 rounded-3xl text-left transition cursor-pointer group shadow-sm"
         >
-          <div className="text-xs font-bold text-slate-400 group-hover:text-cyan-300 flex items-center justify-between">
+          <div className="text-xs font-bold text-slate-500 group-hover:text-teal-700 flex items-center justify-between">
             <span>District Advisories</span>
-            <ArrowRight className="w-3.5 h-3.5 text-cyan-400 opacity-0 group-hover:opacity-100 transition-opacity" />
+            <ArrowRight className="w-3.5 h-3.5 text-teal-600 opacity-0 group-hover:opacity-100 transition-opacity" />
           </div>
-          <div className="text-2xl font-black text-cyan-400 font-mono mt-1">
+          <div className="text-2xl sm:text-3xl font-black text-teal-700 font-mono mt-1">
             {userNotices.length}
           </div>
-          <div className="text-[11px] text-slate-400 mt-1">In {formState.district} corridor</div>
+          <div className="text-xs text-slate-500 mt-0.5">In {formState.district} corridor</div>
         </button>
 
         <button
           type="button"
           onClick={() => onNavigate('tracker', { status: 'active' })}
-          className="p-4 bg-slate-900 hover:bg-slate-850 border border-slate-800 hover:border-emerald-500/50 rounded-2xl text-left transition cursor-pointer group shadow-lg"
+          className="p-5 bg-white hover:bg-slate-50 border border-slate-200/90 hover:border-emerald-400 rounded-3xl text-left transition cursor-pointer group shadow-sm"
         >
-          <div className="text-xs font-bold text-slate-400 group-hover:text-emerald-300 flex items-center justify-between">
+          <div className="text-xs font-bold text-slate-500 group-hover:text-emerald-700 flex items-center justify-between">
             <span>Total System Active</span>
-            <ArrowRight className="w-3.5 h-3.5 text-emerald-400 opacity-0 group-hover:opacity-100 transition-opacity" />
+            <ArrowRight className="w-3.5 h-3.5 text-emerald-600 opacity-0 group-hover:opacity-100 transition-opacity" />
           </div>
-          <div className="text-2xl font-black text-emerald-400 font-mono mt-1">
+          <div className="text-2xl sm:text-3xl font-black text-emerald-700 font-mono mt-1">
             {systemHealth?.metrics?.activeNotices || 12}
           </div>
-          <div className="text-[11px] text-slate-400 mt-1">Across all connected states</div>
+          <div className="text-xs text-slate-500 mt-0.5">Across all connected states</div>
         </button>
 
         <button
           type="button"
           onClick={() => onNavigate('tracker', { status: 'revised' })}
-          className="p-4 bg-slate-900 hover:bg-slate-850 border border-slate-800 hover:border-amber-500/50 rounded-2xl text-left transition cursor-pointer group shadow-lg"
+          className="p-5 bg-white hover:bg-slate-50 border border-slate-200/90 hover:border-amber-400 rounded-3xl text-left transition cursor-pointer group shadow-sm"
         >
-          <div className="text-xs font-bold text-slate-400 group-hover:text-amber-300 flex items-center justify-between">
+          <div className="text-xs font-bold text-slate-500 group-hover:text-amber-700 flex items-center justify-between">
             <span>Recently Revised</span>
-            <ArrowRight className="w-3.5 h-3.5 text-amber-400 opacity-0 group-hover:opacity-100 transition-opacity" />
+            <ArrowRight className="w-3.5 h-3.5 text-amber-600 opacity-0 group-hover:opacity-100 transition-opacity" />
           </div>
-          <div className="text-2xl font-black text-amber-400 font-mono mt-1">
+          <div className="text-2xl sm:text-3xl font-black text-amber-700 font-mono mt-1">
             {recentChangedNotices.length}
           </div>
-          <div className="text-[11px] text-slate-400 mt-1">Audited hash modifications</div>
+          <div className="text-xs text-slate-500 mt-0.5">Audited hash modifications</div>
         </button>
 
         <button
           type="button"
           onClick={() => onNavigate('coverage')}
-          className="p-4 bg-slate-900 hover:bg-slate-850 border border-slate-800 hover:border-teal-500/50 rounded-2xl text-left transition cursor-pointer group shadow-lg"
+          className="p-5 bg-white hover:bg-slate-50 border border-slate-200/90 hover:border-cyan-400 rounded-3xl text-left transition cursor-pointer group shadow-sm"
         >
-          <div className="text-xs font-bold text-slate-400 group-hover:text-teal-300 flex items-center justify-between">
+          <div className="text-xs font-bold text-slate-500 group-hover:text-cyan-700 flex items-center justify-between">
             <span>Connected Live Feeds</span>
-            <ArrowRight className="w-3.5 h-3.5 text-teal-400 opacity-0 group-hover:opacity-100 transition-opacity" />
+            <ArrowRight className="w-3.5 h-3.5 text-cyan-600 opacity-0 group-hover:opacity-100 transition-opacity" />
           </div>
-          <div className="text-2xl font-black text-teal-400 font-mono mt-1">
+          <div className="text-2xl sm:text-3xl font-black text-cyan-700 font-mono mt-1">
             {systemHealth?.agencies?.length || 6}
           </div>
-          <div className="text-[11px] text-slate-400 mt-1">100% verified status</div>
+          <div className="text-xs text-slate-500 mt-0.5">100% verified status</div>
         </button>
       </div>
 
@@ -222,31 +222,31 @@ export function DashboardPage({ onNavigate }) {
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
         
         {/* Left Column: Preferences Manager */}
-        <div className="lg:col-span-5 bg-slate-900 border border-slate-800 rounded-2xl p-6 shadow-xl space-y-5">
-          <div className="border-b border-slate-800 pb-3 flex items-center justify-between">
-            <h2 className="text-base font-bold text-slate-100 flex items-center gap-2">
-              <Heart className="w-4 h-4 text-rose-400" />
+        <div className="lg:col-span-5 bg-white border border-slate-200/90 rounded-3xl p-6 shadow-sm space-y-5 text-slate-900">
+          <div className="border-b border-slate-100 pb-3 flex items-center justify-between">
+            <h2 className="text-base font-black text-[#0B172E] flex items-center gap-2">
+              <Heart className="w-4 h-4 text-rose-500" />
               My Commuter Preferences
             </h2>
-            <span className="text-[11px] text-slate-400">Stored in database</span>
+            <span className="text-xs text-slate-500">Stored in database</span>
           </div>
 
           {saveSuccess && (
-            <div className="p-3 bg-emerald-950 border border-emerald-600/50 rounded-xl text-xs text-emerald-300 flex items-center gap-2">
-              <CheckCircle className="w-4 h-4 text-emerald-400 shrink-0" />
+            <div className="p-3.5 bg-emerald-50 border border-emerald-300 rounded-2xl text-xs text-emerald-800 font-bold flex items-center gap-2 shadow-sm">
+              <CheckCircle className="w-4 h-4 text-emerald-600 shrink-0" />
               <span>Preferences saved successfully!</span>
             </div>
           )}
 
           <form onSubmit={handleSavePreferences} className="space-y-4 text-xs">
             <div>
-              <label className="block text-slate-300 font-semibold mb-1">
+              <label className="block text-slate-700 font-bold mb-1">
                 Preferred State / UT
               </label>
               <select
                 value={formState.state}
                 onChange={(e) => setFormState({ ...formState, state: e.target.value })}
-                className="w-full px-3 py-2 bg-slate-950 border border-slate-700 rounded-lg text-slate-200 focus:outline-none focus:border-cyan-500"
+                className="w-full px-3 py-2.5 bg-slate-50 border border-slate-300 rounded-xl text-slate-900 font-medium focus:outline-none focus:border-teal-600 cursor-pointer"
               >
                 <option value="Delhi (NCT)">Delhi (NCT)</option>
                 <option value="Karnataka">Karnataka</option>
@@ -259,34 +259,34 @@ export function DashboardPage({ onNavigate }) {
             </div>
 
             <div>
-              <label className="block text-slate-300 font-semibold mb-1">
+              <label className="block text-slate-700 font-bold mb-1">
                 Preferred District / City
               </label>
               <input
                 type="text"
                 value={formState.district}
                 onChange={(e) => setFormState({ ...formState, district: e.target.value })}
-                className="w-full px-3 py-2 bg-slate-950 border border-slate-700 rounded-lg text-slate-200 focus:outline-none focus:border-cyan-500"
+                className="w-full px-3 py-2.5 bg-slate-50 border border-slate-300 rounded-xl text-slate-900 font-medium focus:outline-none focus:border-teal-600"
                 placeholder="e.g. South Delhi, Bengaluru Urban, Chennai"
               />
             </div>
 
             <div>
-              <label className="block text-slate-300 font-semibold mb-1">
+              <label className="block text-slate-700 font-bold mb-1">
                 Primary Daily Route ID
               </label>
               <input
                 type="text"
                 value={formState.route_id}
                 onChange={(e) => setFormState({ ...formState, route_id: e.target.value })}
-                className="w-full px-3 py-2 bg-slate-950 border border-slate-700 rounded-lg text-slate-200 focus:outline-none focus:border-cyan-500"
+                className="w-full px-3 py-2.5 bg-slate-50 border border-slate-300 rounded-xl text-slate-900 font-medium focus:outline-none focus:border-teal-600"
                 placeholder="e.g. DTC-534, BMTC-500D, MTC-25G"
               />
             </div>
 
             <div>
-              <label className="block text-slate-300 font-semibold mb-2">
-                Alert Preferences (Deduplicated Push Bulletins)
+              <label className="block text-slate-700 font-bold mb-2">
+                Alert Preferences (Push Bulletins)
               </label>
               <div className="grid grid-cols-2 gap-2">
                 {['diversion', 'delay', 'cancellation', 'interruption'].map(type => (
@@ -294,15 +294,15 @@ export function DashboardPage({ onNavigate }) {
                     key={type}
                     type="button"
                     onClick={() => toggleAlertType(type)}
-                    className={`px-3 py-2 rounded-lg border text-left font-medium capitalize transition flex items-center justify-between ${
+                    className={`px-3 py-2 rounded-xl border text-left font-bold capitalize transition flex items-center justify-between cursor-pointer ${
                       formState.alert_types?.includes(type)
-                        ? 'bg-cyan-950 text-cyan-300 border-cyan-600'
-                        : 'bg-slate-950 text-slate-400 border-slate-800'
+                        ? 'bg-teal-50 text-teal-800 border-teal-400 shadow-sm'
+                        : 'bg-slate-50 text-slate-600 border-slate-200'
                     }`}
                   >
                     <span>{type}</span>
                     {formState.alert_types?.includes(type) && (
-                      <CheckCircle className="w-3.5 h-3.5 text-cyan-400" />
+                      <CheckCircle className="w-3.5 h-3.5 text-teal-600" />
                     )}
                   </button>
                 ))}
@@ -312,7 +312,7 @@ export function DashboardPage({ onNavigate }) {
             <button
               type="submit"
               disabled={savingPrefs}
-              className="w-full py-2.5 bg-gradient-to-r from-cyan-600 to-teal-600 hover:from-cyan-500 hover:to-teal-500 disabled:opacity-50 text-white rounded-xl font-bold flex items-center justify-center gap-2 shadow-lg transition"
+              className="w-full py-3 bg-gradient-to-r from-teal-600 to-cyan-600 hover:from-teal-500 hover:to-cyan-500 disabled:opacity-50 text-white rounded-xl font-black text-xs flex items-center justify-center gap-2 shadow-md hover:shadow-lg transition cursor-pointer"
             >
               <Save className="w-3.5 h-3.5" />
               {savingPrefs ? 'Saving Changes...' : 'Save Preferences'}
@@ -322,13 +322,13 @@ export function DashboardPage({ onNavigate }) {
 
         {/* Right Column: Relevant Advisories in Preferred District */}
         <div className="lg:col-span-7 space-y-6">
-          <div className="bg-slate-900 border border-slate-800 rounded-2xl p-6 shadow-xl space-y-4">
-            <div className="flex items-center justify-between border-b border-slate-800 pb-3">
-              <h2 className="text-base font-bold text-slate-100 flex items-center gap-2">
-                <Bell className="w-4 h-4 text-cyan-400" />
+          <div className="bg-white border border-slate-200/90 rounded-3xl p-6 shadow-sm space-y-4">
+            <div className="flex items-center justify-between border-b border-slate-100 pb-3">
+              <h2 className="text-base font-black text-[#0B172E] flex items-center gap-2">
+                <Bell className="w-4 h-4 text-teal-600" />
                 Advisories in Your Commute Zone ({userNotices.length})
               </h2>
-              <span className="text-xs text-slate-400">
+              <span className="text-xs text-slate-500 font-semibold">
                 {formState.district}, {formState.state}
               </span>
             </div>
@@ -351,28 +351,28 @@ export function DashboardPage({ onNavigate }) {
           </div>
 
           {/* Agency Freshness & System Health Table */}
-          <div className="bg-slate-900 border border-slate-800 rounded-2xl p-6 shadow-xl space-y-4 text-xs">
-            <div className="flex items-center justify-between border-b border-slate-800 pb-3">
-              <h2 className="text-base font-bold text-slate-100 flex items-center gap-2">
-                <ShieldCheck className="w-4 h-4 text-emerald-400" />
+          <div className="bg-white border border-slate-200/90 rounded-3xl p-6 shadow-sm space-y-4 text-xs">
+            <div className="flex items-center justify-between border-b border-slate-100 pb-3">
+              <h2 className="text-base font-black text-[#0B172E] flex items-center gap-2">
+                <ShieldCheck className="w-4 h-4 text-teal-600" />
                 Connected Transport Agencies & Health
               </h2>
-              <span className="text-xs text-slate-400">Polled every 2 min</span>
+              <span className="text-xs text-slate-500">Polled every 2 min</span>
             </div>
 
-            <div className="divide-y divide-slate-800/80">
+            <div className="divide-y divide-slate-100">
               {systemHealth?.agencies?.map(agency => (
                 <div 
                   key={agency.id} 
                   onClick={() => onNavigate('coverage')}
-                  className="py-2.5 flex items-center justify-between hover:bg-slate-800/50 px-2 rounded-lg transition cursor-pointer group"
+                  className="py-3 flex items-center justify-between hover:bg-slate-50 px-2 rounded-xl transition cursor-pointer group"
                 >
                   <div>
-                    <div className="font-bold text-slate-200 group-hover:text-cyan-300 transition-colors">{agency.name}</div>
-                    <div className="text-[10px] text-slate-400">{agency.status_message}</div>
+                    <div className="font-bold text-[#0B172E] group-hover:text-teal-700 transition-colors">{agency.name}</div>
+                    <div className="text-[11px] text-slate-500">{agency.status_message}</div>
                   </div>
                   <div className="text-right">
-                    <span className="px-2 py-0.5 rounded text-[10px] font-bold bg-emerald-950 text-emerald-300 border border-emerald-700/40">
+                    <span className="px-2.5 py-0.5 rounded-full text-[10px] font-bold bg-emerald-50 text-emerald-800 border border-emerald-300">
                       {agency.feed_type}
                     </span>
                     <div className="text-[10px] text-slate-400 mt-0.5">

@@ -182,42 +182,42 @@ export function TrackerPage({ initialParams = {} }) {
   };
 
   return (
-    <div className="w-full px-4 sm:px-8 lg:px-12 py-6 space-y-6">
+    <div className="w-full px-4 sm:px-8 lg:px-12 py-6 space-y-6 bg-[#F8FAFC] text-slate-900">
       
       {/* Top Header & Refresh Action Bar */}
       <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
         <div>
-          <h1 className="text-2xl sm:text-3xl font-black text-slate-100 flex items-center gap-2">
+          <h1 className="text-2xl sm:text-3xl font-black text-[#0B172E] flex items-center gap-2">
             Transit Service Update Tracker
-            <span className="text-xs font-semibold px-2 py-0.5 rounded-full bg-cyan-950 text-cyan-400 border border-cyan-800">
+            <span className="text-xs font-bold px-3 py-1 rounded-full bg-teal-50 text-teal-800 border border-teal-200">
               National Feed
             </span>
           </h1>
-          <p className="text-xs text-slate-400 mt-1">
+          <p className="text-xs sm:text-sm text-slate-600 mt-1">
             Real-time route diversions, cancellations, delays, and scheduled interruptions across India.
           </p>
         </div>
 
         <div className="flex items-center gap-2 w-full sm:w-auto">
           {/* View Mode Toggle for Mobile / Tablets */}
-          <div className="flex items-center bg-slate-900 p-1 rounded-xl border border-slate-800 lg:hidden">
+          <div className="flex items-center bg-white p-1 rounded-xl border border-slate-200 lg:hidden shadow-sm">
             <button
               onClick={() => setActiveViewMode('split')}
-              className={`p-1.5 rounded-lg text-xs font-semibold ${activeViewMode === 'split' ? 'bg-slate-800 text-cyan-400' : 'text-slate-400'}`}
+              className={`p-1.5 rounded-lg text-xs font-bold ${activeViewMode === 'split' ? 'bg-teal-700 text-white' : 'text-slate-600'}`}
               title="Split View"
             >
               Split
             </button>
             <button
               onClick={() => setActiveViewMode('map')}
-              className={`p-1.5 rounded-lg text-xs font-semibold ${activeViewMode === 'map' ? 'bg-slate-800 text-cyan-400' : 'text-slate-400'}`}
+              className={`p-1.5 rounded-lg text-xs font-bold ${activeViewMode === 'map' ? 'bg-teal-700 text-white' : 'text-slate-600'}`}
               title="Map Only"
             >
               <Map className="w-4 h-4" />
             </button>
             <button
               onClick={() => setActiveViewMode('list')}
-              className={`p-1.5 rounded-lg text-xs font-semibold ${activeViewMode === 'list' ? 'bg-slate-800 text-cyan-400' : 'text-slate-400'}`}
+              className={`p-1.5 rounded-lg text-xs font-bold ${activeViewMode === 'list' ? 'bg-teal-700 text-white' : 'text-slate-600'}`}
               title="List Only"
             >
               <List className="w-4 h-4" />
@@ -227,7 +227,7 @@ export function TrackerPage({ initialParams = {} }) {
           <button
             onClick={handleManualRefresh}
             disabled={isRefreshing}
-            className="px-4 py-2.5 bg-slate-800 hover:bg-slate-700 disabled:opacity-50 text-cyan-400 hover:text-cyan-300 rounded-xl text-xs font-bold flex items-center justify-center gap-2 transition border border-slate-700 shadow-lg shrink-0 ml-auto sm:ml-0 cursor-pointer"
+            className="px-4 py-2.5 bg-white hover:bg-slate-50 disabled:opacity-50 text-teal-700 hover:text-teal-900 rounded-xl text-xs font-bold flex items-center justify-center gap-2 transition border border-slate-300 shadow-sm shrink-0 ml-auto sm:ml-0 cursor-pointer"
           >
             <RefreshCw className={`w-3.5 h-3.5 ${isRefreshing ? 'animate-spin' : ''}`} />
             {isRefreshing ? 'Checking Feeds...' : 'Refresh Feeds'}
@@ -237,8 +237,8 @@ export function TrackerPage({ initialParams = {} }) {
 
       {/* Sync Feedback Toast */}
       {syncFeedback && (
-        <div className="p-3 bg-emerald-950/80 border border-emerald-600/50 rounded-xl text-xs text-emerald-300 flex items-center gap-2 animate-fadeIn">
-          <CheckCircle className="w-4 h-4 text-emerald-400 shrink-0" />
+        <div className="p-3.5 bg-emerald-50 border border-emerald-300 rounded-2xl text-xs text-emerald-800 font-bold flex items-center gap-2 shadow-sm animate-fadeIn">
+          <CheckCircle className="w-4 h-4 text-emerald-600 shrink-0" />
           <span>{syncFeedback}</span>
         </div>
       )}
@@ -265,12 +265,12 @@ export function TrackerPage({ initialParams = {} }) {
 
       {/* Error Banner */}
       {error && (
-        <div className="p-4 bg-red-950/50 border border-red-800 rounded-xl text-red-300 text-xs flex items-center justify-between">
+        <div className="p-4 bg-rose-50 border border-rose-300 rounded-2xl text-rose-800 text-xs font-bold flex items-center justify-between">
           <div className="flex items-center gap-2">
-            <AlertTriangle className="w-4 h-4 text-red-400 shrink-0" />
+            <AlertTriangle className="w-4 h-4 text-rose-600 shrink-0" />
             <span>{error}</span>
           </div>
-          <button onClick={fetchData} className="underline hover:text-white font-semibold">
+          <button onClick={fetchData} className="underline hover:text-rose-900 font-bold">
             Retry
           </button>
         </div>
@@ -281,35 +281,37 @@ export function TrackerPage({ initialParams = {} }) {
         
         {/* Map Column */}
         <div className={`lg:col-span-7 xl:col-span-8 h-[600px] lg:h-[760px] sticky top-20 ${activeViewMode === 'list' ? 'hidden lg:block' : 'block'}`}>
-          <MapView
-            selectedState={selectedState !== 'All' ? selectedState : null}
-            selectedDistrict={selectedDistrict !== 'All' ? selectedDistrict : null}
-            routes={routes}
-            vehicles={vehicles}
-            notices={notices}
-            stops={stops}
-            selectedRouteId={selectedRoute?.id}
-            selectedVehicleId={selectedVehicleId}
-            onSelectNotice={(n) => setActiveNoticeId(n.id)}
-            onSelectRoute={(r) => handleSelectRoute(r)}
-            onSelectVehicle={(v) => {
-              setSelectedVehicleId(v.id);
-              setActiveRightTab('vehicles');
-            }}
-          />
+          <div className="h-full rounded-3xl overflow-hidden border border-slate-300 shadow-xl bg-white">
+            <MapView
+              selectedState={selectedState !== 'All' ? selectedState : null}
+              selectedDistrict={selectedDistrict !== 'All' ? selectedDistrict : null}
+              routes={routes}
+              vehicles={vehicles}
+              notices={notices}
+              stops={stops}
+              selectedRouteId={selectedRoute?.id}
+              selectedVehicleId={selectedVehicleId}
+              onSelectNotice={(n) => setActiveNoticeId(n.id)}
+              onSelectRoute={(r) => handleSelectRoute(r)}
+              onSelectVehicle={(v) => {
+                setSelectedVehicleId(v.id);
+                setActiveRightTab('vehicles');
+              }}
+            />
+          </div>
         </div>
 
         {/* Side Panel Column with 3 Interactive Tabs */}
         <div className={`lg:col-span-5 xl:col-span-4 space-y-4 ${activeViewMode === 'map' ? 'hidden lg:block' : 'block'}`}>
           
           {/* Panel Tab Switcher */}
-          <div className="flex items-center gap-1 p-1 bg-slate-900 border border-slate-800 rounded-xl text-xs font-bold">
+          <div className="flex items-center gap-1 p-1 bg-white border border-slate-200 rounded-2xl text-xs font-bold shadow-sm">
             <button
               onClick={() => setActiveRightTab('notices')}
-              className={`flex-1 py-2 px-2 rounded-lg transition flex items-center justify-center gap-1.5 cursor-pointer ${
+              className={`flex-1 py-2 px-2 rounded-xl transition flex items-center justify-center gap-1.5 cursor-pointer ${
                 activeRightTab === 'notices'
-                  ? 'bg-cyan-500 text-slate-950 shadow-md shadow-cyan-500/20'
-                  : 'text-slate-400 hover:text-slate-200'
+                  ? 'bg-teal-700 text-white shadow-md'
+                  : 'text-slate-600 hover:text-slate-900'
               }`}
             >
               <AlertTriangle className="w-3.5 h-3.5" />
@@ -318,10 +320,10 @@ export function TrackerPage({ initialParams = {} }) {
 
             <button
               onClick={() => setActiveRightTab('routes')}
-              className={`flex-1 py-2 px-2 rounded-lg transition flex items-center justify-center gap-1.5 cursor-pointer ${
+              className={`flex-1 py-2 px-2 rounded-xl transition flex items-center justify-center gap-1.5 cursor-pointer ${
                 activeRightTab === 'routes'
-                  ? 'bg-cyan-500 text-slate-950 shadow-md shadow-cyan-500/20'
-                  : 'text-slate-400 hover:text-slate-200'
+                  ? 'bg-teal-700 text-white shadow-md'
+                  : 'text-slate-600 hover:text-slate-900'
               }`}
             >
               <Bus className="w-3.5 h-3.5" />
@@ -330,10 +332,10 @@ export function TrackerPage({ initialParams = {} }) {
 
             <button
               onClick={() => setActiveRightTab('vehicles')}
-              className={`flex-1 py-2 px-2 rounded-lg transition flex items-center justify-center gap-1.5 cursor-pointer ${
+              className={`flex-1 py-2 px-2 rounded-xl transition flex items-center justify-center gap-1.5 cursor-pointer ${
                 activeRightTab === 'vehicles'
-                  ? 'bg-cyan-500 text-slate-950 shadow-md shadow-cyan-500/20'
-                  : 'text-slate-400 hover:text-slate-200'
+                  ? 'bg-teal-700 text-white shadow-md'
+                  : 'text-slate-600 hover:text-slate-900'
               }`}
             >
               <Navigation className="w-3.5 h-3.5" />
@@ -344,32 +346,32 @@ export function TrackerPage({ initialParams = {} }) {
           {/* TAB 1: NOTICES LIST */}
           {activeRightTab === 'notices' && (
             <div className="space-y-3">
-              <div className="flex items-center justify-between text-xs text-slate-400 px-1">
-                <span className="font-semibold text-slate-200">
+              <div className="flex items-center justify-between text-xs text-slate-500 px-1 font-semibold">
+                <span className="text-[#0B172E] font-bold">
                   {notices.length} Active {notices.length === 1 ? 'Advisory' : 'Advisories'}
                 </span>
                 <span>Audited Hash Diffing</span>
               </div>
 
               {loading && (
-                <div className="py-24 text-center text-slate-400 bg-slate-900 border border-slate-800 rounded-2xl">
-                  <div className="w-8 h-8 border-2 border-cyan-400 border-t-transparent rounded-full animate-spin mx-auto mb-3"></div>
+                <div className="py-24 text-center text-slate-500 bg-white border border-slate-200 rounded-3xl shadow-sm">
+                  <div className="w-8 h-8 border-2 border-teal-600 border-t-transparent rounded-full animate-spin mx-auto mb-3"></div>
                   Querying verified transit advisories...
                 </div>
               )}
 
               {!loading && notices.length === 0 && (
-                <div className="p-8 text-center bg-slate-900 border border-slate-800 rounded-2xl space-y-3">
-                  <div className="w-12 h-12 rounded-full bg-slate-800 flex items-center justify-center mx-auto text-slate-400">
+                <div className="p-8 text-center bg-white border border-slate-200 rounded-3xl space-y-3 shadow-sm">
+                  <div className="w-12 h-12 rounded-full bg-slate-100 flex items-center justify-center mx-auto text-slate-400">
                     <Search className="w-6 h-6" />
                   </div>
-                  <h3 className="text-base font-bold text-slate-200">No Advisories Match Your Filter</h3>
-                  <p className="text-xs text-slate-400 max-w-sm mx-auto">
+                  <h3 className="text-base font-bold text-[#0B172E]">No Advisories Match Your Filter</h3>
+                  <p className="text-xs text-slate-500 max-w-sm mx-auto">
                     No active interruptions or diversions found for the chosen criteria.
                   </p>
                   <button
                     onClick={handleResetFilters}
-                    className="px-4 py-2 bg-slate-800 hover:bg-slate-700 text-cyan-400 text-xs font-semibold rounded-lg transition cursor-pointer"
+                    className="px-4 py-2 bg-slate-100 hover:bg-slate-200 text-teal-700 text-xs font-bold rounded-xl transition cursor-pointer"
                   >
                     Reset All Filters
                   </button>
@@ -395,64 +397,64 @@ export function TrackerPage({ initialParams = {} }) {
             <div className="space-y-3">
               {selectedRoute ? (
                 /* Selected Route Details & Stop Timeline */
-                <div className="bg-slate-900 border border-slate-800 rounded-2xl p-5 shadow-xl space-y-4">
-                  <div className="flex items-center justify-between pb-3 border-b border-slate-800">
+                <div className="bg-white border border-slate-200/90 rounded-3xl p-6 shadow-sm space-y-4">
+                  <div className="flex items-center justify-between pb-3 border-b border-slate-100">
                     <button
                       onClick={() => handleSelectRoute(null)}
-                      className="flex items-center gap-1.5 text-xs font-bold text-cyan-400 hover:text-cyan-300 transition cursor-pointer"
+                      className="flex items-center gap-1.5 text-xs font-bold text-teal-700 hover:text-teal-900 transition cursor-pointer"
                     >
                       <ArrowLeft className="w-3.5 h-3.5" />
-                      Back to All Routes
+                      Back to All Corridors
                     </button>
-                    <span className="text-[10px] font-bold px-2 py-0.5 rounded bg-cyan-950 text-cyan-400 border border-cyan-800 uppercase">
+                    <span className="text-[10px] font-bold px-2.5 py-0.5 rounded-full bg-teal-50 text-teal-800 border border-teal-200 uppercase">
                       {selectedRoute.transport_type}
                     </span>
                   </div>
 
                   <div>
-                    <h3 className="text-base font-black text-slate-100">
+                    <h3 className="text-lg font-black text-[#0B172E]">
                       {selectedRoute.route_short_name}: {selectedRoute.route_long_name}
                     </h3>
-                    <div className="text-xs text-slate-400 mt-1 flex flex-wrap items-center gap-2">
+                    <div className="text-xs text-slate-600 mt-1 flex flex-wrap items-center gap-2 font-medium">
                       <span>{selectedRoute.origin || 'Start'}</span>
                       <span>→</span>
                       <span>{selectedRoute.destination || 'End'}</span>
                     </div>
-                    <div className="text-[11px] text-slate-500 mt-0.5">
+                    <div className="text-xs text-slate-500 mt-0.5">
                       {selectedRoute.agency_name} • {selectedRoute.district}, {selectedRoute.state}
                     </div>
                   </div>
 
                   {/* Stops Timeline */}
-                  <div className="pt-2 border-t border-slate-800 space-y-2">
-                    <div className="flex items-center justify-between text-xs font-bold text-slate-300">
+                  <div className="pt-2 border-t border-slate-100 space-y-2">
+                    <div className="flex items-center justify-between text-xs font-bold text-slate-700">
                       <span>Scheduled Stops ({stops.length})</span>
-                      <span className="text-[10px] text-emerald-400">🟢 Real-time Ingestion</span>
+                      <span className="text-[10px] text-emerald-700 font-bold bg-emerald-50 px-2 py-0.5 rounded border border-emerald-200">🟢 Real-time Ingestion</span>
                     </div>
 
                     {loadingRouteStops ? (
-                      <div className="py-6 text-center text-xs text-slate-400">
-                        <div className="w-5 h-5 border-2 border-cyan-400 border-t-transparent rounded-full animate-spin mx-auto mb-2"></div>
+                      <div className="py-6 text-center text-xs text-slate-500">
+                        <div className="w-5 h-5 border-2 border-teal-600 border-t-transparent rounded-full animate-spin mx-auto mb-2"></div>
                         Loading route stops...
                       </div>
                     ) : stops.length === 0 ? (
-                      <div className="py-4 text-center text-xs text-slate-500">
+                      <div className="py-4 text-center text-xs text-slate-400">
                         No intermediate stops mapped for this corridor.
                       </div>
                     ) : (
-                      <div className="space-y-1.5 max-h-96 overflow-y-auto pr-1">
+                      <div className="space-y-2 max-h-96 overflow-y-auto pr-1">
                         {stops.map((stop, idx) => (
                           <div
                             key={stop.id || idx}
-                            className="p-2 rounded-lg bg-slate-950/80 border border-slate-800 flex items-center justify-between text-xs hover:border-cyan-500/50 transition"
+                            className="p-2.5 rounded-xl bg-slate-50 border border-slate-200 flex items-center justify-between text-xs hover:border-teal-400 transition"
                           >
-                            <div className="flex items-center gap-2">
-                              <span className="w-5 h-5 rounded-full bg-cyan-950 border border-cyan-700 text-cyan-400 flex items-center justify-center font-bold text-[10px]">
+                            <div className="flex items-center gap-2.5">
+                              <span className="w-5 h-5 rounded-full bg-teal-700 text-white flex items-center justify-center font-bold text-[10px]">
                                 {stop.stop_sequence || idx + 1}
                               </span>
-                              <span className="font-semibold text-slate-200">{stop.stop_name}</span>
+                              <span className="font-bold text-slate-800">{stop.stop_name}</span>
                             </div>
-                            <span className="text-[10px] text-emerald-400 font-mono font-bold">
+                            <span className="text-xs text-emerald-700 font-mono font-bold bg-emerald-50 px-2 py-0.5 rounded border border-emerald-200">
                               ~{(idx * 3 + 2)}m
                             </span>
                           </div>
@@ -462,10 +464,10 @@ export function TrackerPage({ initialParams = {} }) {
                   </div>
                 </div>
               ) : (
-                /* List of All Corridors */
+                /* List of All Corridors (RedBus Style Cards) */
                 <div className="space-y-3">
-                  <div className="flex items-center justify-between text-xs text-slate-400 px-1">
-                    <span className="font-semibold text-slate-200">
+                  <div className="flex items-center justify-between text-xs text-slate-500 px-1 font-semibold">
+                    <span className="text-[#0B172E] font-bold">
                       {routes.length} Monitored Corridors
                     </span>
                     <span>Click any route to track</span>
@@ -482,29 +484,29 @@ export function TrackerPage({ initialParams = {} }) {
                         <div
                           key={r.id}
                           onClick={() => handleSelectRoute(r)}
-                          className="p-4 bg-slate-900 hover:bg-slate-850 border border-slate-800 hover:border-cyan-500/50 rounded-2xl transition cursor-pointer shadow-xl group space-y-3"
+                          className="p-4 bg-white hover:bg-slate-50 border border-slate-200/90 hover:border-teal-500/50 rounded-2xl transition cursor-pointer shadow-sm hover:shadow-md group space-y-3"
                         >
                           <div className="flex items-center gap-3">
-                            <div className="w-20 h-16 rounded-xl overflow-hidden bg-slate-950 shrink-0 border border-slate-800 relative">
+                            <div className="w-20 h-16 rounded-xl overflow-hidden bg-slate-100 shrink-0 border border-slate-200 relative">
                               <img src={imgUrl} alt={r.route_short_name} className="w-full h-full object-cover group-hover:scale-105 transition-transform" />
-                              <span className="absolute bottom-1 left-1 px-1.5 py-0.2 bg-slate-950/90 text-cyan-400 font-bold text-[9px] rounded">
+                              <span className="absolute bottom-1 left-1 px-1.5 py-0.2 bg-[#0B172E]/90 text-cyan-300 font-bold text-[9px] rounded">
                                 {r.transport_type}
                               </span>
                             </div>
 
                             <div className="flex-1 min-w-0">
                               <div className="flex items-center justify-between gap-1">
-                                <span className="text-base font-black text-white group-hover:text-cyan-400 transition-colors">
+                                <span className="text-base font-black text-[#0B172E] group-hover:text-teal-700 transition-colors">
                                   {r.route_short_name}
                                 </span>
-                                <span className="text-xs font-bold px-2 py-0.5 rounded bg-cyan-950 text-cyan-300 border border-cyan-800/50">
+                                <span className="text-xs font-bold px-2 py-0.5 rounded bg-teal-50 text-teal-800 border border-teal-200">
                                   {r.district}
                                 </span>
                               </div>
-                              <p className="text-xs text-slate-300 font-medium truncate mt-0.5">
+                              <p className="text-xs text-slate-600 font-semibold truncate mt-0.5">
                                 {r.route_long_name}
                               </p>
-                              <div className="text-[11px] text-slate-400 flex items-center gap-1.5 mt-0.5">
+                              <div className="text-xs text-slate-500 flex items-center gap-1.5 mt-0.5">
                                 <span>{r.origin || 'Start'}</span>
                                 <span>→</span>
                                 <span>{r.destination || 'End'}</span>
@@ -512,9 +514,9 @@ export function TrackerPage({ initialParams = {} }) {
                             </div>
                           </div>
 
-                          <div className="pt-2 border-t border-slate-800/80 flex items-center justify-between text-xs">
-                            <span className="text-slate-400 font-medium">{r.agency_name || 'State RTC'}</span>
-                            <span className="text-cyan-400 font-bold group-hover:translate-x-1 transition-transform flex items-center gap-1">
+                          <div className="pt-2 border-t border-slate-100 flex items-center justify-between text-xs">
+                            <span className="text-slate-500 font-medium">{r.agency_name || 'State RTC'}</span>
+                            <span className="text-teal-700 font-bold group-hover:translate-x-1 transition-transform flex items-center gap-1">
                               View Stops & Live Map <ChevronRight className="w-3.5 h-3.5" />
                             </span>
                           </div>
@@ -530,12 +532,12 @@ export function TrackerPage({ initialParams = {} }) {
           {/* TAB 3: LIVE FLEET VEHICLES */}
           {activeRightTab === 'vehicles' && (
             <div className="space-y-3">
-              <div className="flex items-center justify-between text-xs text-slate-400 px-1">
-                <span className="font-semibold text-slate-200">
+              <div className="flex items-center justify-between text-xs text-slate-500 px-1 font-semibold">
+                <span className="text-[#0B172E] font-bold">
                   {vehicles.length} Real-Time GPS Transponders
                 </span>
-                <span className="text-emerald-400 flex items-center gap-1">
-                  <span className="w-2 h-2 rounded-full bg-emerald-400 animate-ping"></span>
+                <span className="text-emerald-700 font-bold flex items-center gap-1">
+                  <span className="w-2 h-2 rounded-full bg-emerald-500 animate-ping"></span>
                   Active Telemetry
                 </span>
               </div>
@@ -548,50 +550,50 @@ export function TrackerPage({ initialParams = {} }) {
                   return (
                     <div
                       key={v.id}
-                      className={`p-4 bg-slate-900 border rounded-2xl transition shadow-xl space-y-3 ${
-                        selectedVehicleId === v.id ? 'border-cyan-500 bg-slate-850 ring-2 ring-cyan-500/20' : 'border-slate-800 hover:border-slate-700'
+                      className={`p-4 bg-white border rounded-2xl transition shadow-sm hover:shadow-md space-y-3 ${
+                        selectedVehicleId === v.id ? 'border-teal-600 ring-2 ring-teal-500/20' : 'border-slate-200'
                       }`}
                     >
                       <div className="flex items-center gap-3">
-                        <div className="w-16 h-14 rounded-xl overflow-hidden bg-slate-950 shrink-0 border border-slate-800">
+                        <div className="w-16 h-14 rounded-xl overflow-hidden bg-slate-100 shrink-0 border border-slate-200">
                           <img src={imgUrl} alt={v.vehicle_label} className="w-full h-full object-cover" />
                         </div>
 
                         <div className="flex-1 min-w-0">
                           <div className="flex items-center justify-between">
-                            <span className="text-sm font-black text-white">{v.vehicle_label}</span>
+                            <span className="text-sm font-black text-[#0B172E]">{v.vehicle_label}</span>
                             <span className={`text-[10px] font-bold px-2 py-0.5 rounded-full ${
-                              v.status === 'delayed' ? 'bg-red-950 text-red-300 border border-red-700' : 'bg-emerald-950 text-emerald-300 border border-emerald-700'
+                              v.status === 'delayed' ? 'bg-rose-50 text-rose-700 border border-rose-200' : 'bg-emerald-50 text-emerald-800 border border-emerald-200'
                             }`}>
                               {v.status === 'delayed' ? 'Delayed (+8m)' : 'On Schedule'}
                             </span>
                           </div>
-                          <div className="text-xs text-slate-300 font-semibold mt-0.5">
+                          <div className="text-xs text-slate-700 font-bold mt-0.5">
                             Route: {v.route_short_name || v.route_id}
                           </div>
-                          <div className="text-[11px] text-slate-400 truncate">
+                          <div className="text-[11px] text-slate-500 truncate">
                             {v.agency_name || 'Official RT Agency'}
                           </div>
                         </div>
                       </div>
 
                       <div className="grid grid-cols-2 gap-2 text-xs pt-1">
-                        <div className="p-2 bg-slate-950 rounded-xl border border-slate-800/80">
+                        <div className="p-2.5 bg-slate-50 rounded-xl border border-slate-200">
                           <span className="text-[10px] text-slate-500 block">Instant Speed</span>
-                          <strong className="text-cyan-400 font-mono text-sm">{v.speed_kmh || 26} km/h</strong>
+                          <strong className="text-teal-700 font-mono text-sm">{v.speed_kmh || 26} km/h</strong>
                         </div>
-                        <div className="p-2 bg-slate-950 rounded-xl border border-slate-800/80">
+                        <div className="p-2.5 bg-slate-50 rounded-xl border border-slate-200">
                           <span className="text-[10px] text-slate-500 block">GPS Telemetry</span>
-                          <strong className="text-emerald-400 text-xs">🟢 Live Active</strong>
+                          <strong className="text-emerald-700 text-xs">🟢 Live Active</strong>
                         </div>
                       </div>
 
                       <button
                         onClick={() => setSelectedVehicleId(v.id)}
-                        className={`w-full py-2 px-3 rounded-xl text-xs font-bold flex items-center justify-center gap-1.5 transition cursor-pointer ${
+                        className={`w-full py-2.5 px-3 rounded-xl text-xs font-bold flex items-center justify-center gap-1.5 transition cursor-pointer shadow-sm ${
                           selectedVehicleId === v.id
-                            ? 'bg-amber-600 text-white shadow-lg'
-                            : 'bg-cyan-600 hover:bg-cyan-500 text-white shadow-md'
+                            ? 'bg-amber-600 text-white shadow-md'
+                            : 'bg-gradient-to-r from-teal-600 to-cyan-600 hover:from-teal-500 hover:to-cyan-500 text-white shadow'
                         }`}
                       >
                         <Navigation className="w-3.5 h-3.5" />

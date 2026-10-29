@@ -35,7 +35,7 @@ export function NoticeCard({ notice, onSelect }) {
   return (
     <div
       onClick={() => onSelect && onSelect(notice)}
-      className="group relative bg-slate-900/80 hover:bg-slate-900 border border-slate-800 hover:border-cyan-500/50 rounded-xl p-5 shadow-lg transition-all duration-200 cursor-pointer flex flex-col justify-between"
+      className="group relative bg-white hover:bg-slate-50 border border-slate-200/90 hover:border-teal-500/50 rounded-2xl p-5 shadow-sm hover:shadow-md transition-all duration-200 cursor-pointer flex flex-col justify-between"
     >
       <div>
         {/* Top Badges Row */}
@@ -45,56 +45,56 @@ export function NoticeCard({ notice, onSelect }) {
             <TransportBadge type={notice.transport_type} />
             <NoticeTypeBadge type={notice.notice_type} />
             {notice.revision_id > 1 && (
-              <span className="text-[11px] font-semibold text-cyan-400 bg-cyan-950 px-2 py-0.5 rounded border border-cyan-800/40 flex items-center gap-1">
-                <History className="w-3 h-3" /> Rev {notice.revision_id}
+              <span className="text-[11px] font-bold text-teal-800 bg-teal-50 px-2 py-0.5 rounded border border-teal-200 flex items-center gap-1">
+                <History className="w-3 h-3 text-teal-600" /> Rev {notice.revision_id}
               </span>
             )}
           </div>
-          <span className="text-[11px] text-slate-400 font-mono">
+          <span className="text-[11px] text-slate-400 font-mono font-medium">
             {notice.id}
           </span>
         </div>
 
         {/* Title */}
-        <h3 className="text-base font-bold text-slate-100 group-hover:text-cyan-300 transition-colors line-clamp-2 mb-2">
+        <h3 className="text-base font-extrabold text-[#0B172E] group-hover:text-teal-700 transition-colors line-clamp-2 mb-2">
           {notice.title}
         </h3>
 
         {/* Summary Snippet */}
-        <p className="text-sm text-slate-300 line-clamp-2 mb-4 leading-relaxed">
+        <p className="text-sm text-slate-600 line-clamp-2 mb-4 leading-relaxed font-normal">
           {notice.summary}
         </p>
 
         {/* Context Information */}
-        <div className="space-y-1.5 text-xs text-slate-400 border-t border-slate-800/80 pt-3">
+        <div className="space-y-1.5 text-xs text-slate-500 border-t border-slate-100 pt-3">
           <div className="flex items-center gap-2">
-            <MapPin className="w-3.5 h-3.5 text-cyan-400 shrink-0" />
+            <MapPin className="w-3.5 h-3.5 text-teal-600 shrink-0" />
             <span className="truncate">
-              <strong className="text-slate-200">{notice.district}, {notice.state}</strong>
+              <strong className="text-slate-800">{notice.district}, {notice.state}</strong>
               {notice.affected_area && ` — ${notice.affected_area}`}
             </span>
           </div>
 
           <div className="flex items-center gap-2">
-            <Calendar className="w-3.5 h-3.5 text-amber-400 shrink-0" />
+            <Calendar className="w-3.5 h-3.5 text-amber-600 shrink-0" />
             <span>
-              Valid: <strong className="text-slate-200">{formatDate(notice.valid_from)}</strong> to <strong className="text-slate-200">{formatDate(notice.valid_to)}</strong>
+              Valid: <strong className="text-slate-800">{formatDate(notice.valid_from)}</strong> to <strong className="text-slate-800">{formatDate(notice.valid_to)}</strong>
             </span>
           </div>
         </div>
       </div>
 
       {/* Footer / Provenance info */}
-      <div className="flex items-center justify-between mt-4 pt-3 border-t border-slate-800 text-[11px] text-slate-400">
-        <div className="flex items-center gap-1 truncate max-w-[70%]">
-          <span className="w-1.5 h-1.5 rounded-full bg-cyan-500 shrink-0"></span>
-          <span className="truncate">{notice.agency_name || notice.agency_id}</span>
+      <div className="flex items-center justify-between mt-4 pt-3 border-t border-slate-100 text-xs text-slate-500">
+        <div className="flex items-center gap-1.5 truncate max-w-[70%]">
+          <span className="w-2 h-2 rounded-full bg-teal-500 shrink-0"></span>
+          <span className="truncate font-semibold text-slate-700">{notice.agency_name || notice.agency_id}</span>
         </div>
-        <div className="flex items-center gap-2 shrink-0">
+        <div className="flex items-center gap-1.5 shrink-0">
           <span title={`Confirmed ${notice.last_confirmed_time}`}>
             Observed {getRelativeTime(notice.observed_time)}
           </span>
-          <ArrowRight className="w-3.5 h-3.5 text-cyan-400 group-hover:translate-x-1 transition-transform" />
+          <ArrowRight className="w-3.5 h-3.5 text-teal-600 group-hover:translate-x-1 transition-transform" />
         </div>
       </div>
     </div>

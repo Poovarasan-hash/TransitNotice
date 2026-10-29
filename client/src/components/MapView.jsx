@@ -501,7 +501,7 @@ export function MapView({
   };
 
   return (
-    <div className="relative w-full h-full min-h-[550px] rounded-2xl overflow-hidden border border-slate-800 shadow-2xl bg-slate-950">
+    <div className="relative w-full h-full min-h-[550px] rounded-3xl overflow-hidden border border-slate-300 shadow-xl bg-white">
       
       {/* Map DOM Element */}
       <div ref={mapContainerRef} className="w-full h-full" style={{ minHeight: '550px' }} />
@@ -509,133 +509,133 @@ export function MapView({
       {/* Top Controls: Map Style Selector & Reset View */}
       <div className="absolute top-4 left-4 z-[1000] flex flex-wrap items-center gap-2">
         {/* Style Selector Dropdown */}
-        <div className="flex items-center gap-1 bg-slate-900/95 p-1 rounded-xl border border-slate-700 shadow-xl backdrop-blur text-xs">
-          <MapIcon className="w-4 h-4 text-cyan-400 ml-2" />
+        <div className="flex items-center gap-1.5 bg-white/95 p-1 rounded-2xl border border-slate-200 shadow-lg backdrop-blur text-xs">
+          <MapIcon className="w-4 h-4 text-teal-600 ml-2" />
           <select
             value={currentMapStyle}
             onChange={(e) => setCurrentMapStyle(e.target.value)}
-            className="bg-transparent text-slate-100 font-bold py-1 px-2 focus:outline-none cursor-pointer"
+            className="bg-transparent text-slate-900 font-bold py-1 px-2 focus:outline-none cursor-pointer"
           >
-            <option value="google_streets" className="bg-slate-900 text-white">Google Maps Transit</option>
-            <option value="google_traffic" className="bg-slate-900 text-white">Google Live Traffic</option>
-            <option value="google_hybrid" className="bg-slate-900 text-white">Google Satellite Hybrid</option>
-            <option value="dark_transit" className="bg-slate-900 text-white">Dark Transit Style</option>
+            <option value="google_streets" className="bg-white text-slate-900">Google Maps Transit</option>
+            <option value="google_traffic" className="bg-white text-slate-900">Google Live Traffic</option>
+            <option value="google_hybrid" className="bg-white text-slate-900">Google Satellite Hybrid</option>
+            <option value="dark_transit" className="bg-white text-slate-900">Carto Transit Style</option>
           </select>
         </div>
 
         {/* Reset View Button */}
         <button
           onClick={resetView}
-          className="flex items-center gap-1.5 px-3 py-2 bg-slate-900/95 hover:bg-slate-800 text-slate-200 text-xs font-bold rounded-xl shadow-xl border border-slate-700 backdrop-blur transition"
+          className="flex items-center gap-1.5 px-3 py-2 bg-white/95 hover:bg-slate-50 text-slate-800 text-xs font-bold rounded-2xl shadow-lg border border-slate-200 backdrop-blur transition"
           title="Reset to All India View"
         >
-          <Maximize2 className="w-3.5 h-3.5 text-cyan-400" />
+          <Maximize2 className="w-3.5 h-3.5 text-teal-600" />
           All India
         </button>
 
         {/* Live Simulation Play/Pause Toggle */}
         <button
           onClick={() => setIsSimulating(!isSimulating)}
-          className={`flex items-center gap-1.5 px-3 py-2 rounded-xl text-xs font-bold shadow-xl border backdrop-blur transition ${
-            isSimulating ? 'bg-emerald-950/90 text-emerald-300 border-emerald-500/40' : 'bg-slate-900/95 text-slate-400 border-slate-700'
+          className={`flex items-center gap-1.5 px-3.5 py-2 rounded-2xl text-xs font-bold shadow-lg border backdrop-blur transition ${
+            isSimulating ? 'bg-emerald-50 text-emerald-800 border-emerald-300' : 'bg-white/95 text-slate-600 border-slate-200'
           }`}
           title="Toggle live telemetry GPS animation"
         >
-          {isSimulating ? <Pause className="w-3.5 h-3.5" /> : <Play className="w-3.5 h-3.5" />}
+          {isSimulating ? <Pause className="w-3.5 h-3.5 text-emerald-600" /> : <Play className="w-3.5 h-3.5 text-slate-500" />}
           {isSimulating ? 'Live GPS Active' : 'Simulation Paused'}
         </button>
       </div>
 
       {/* Layer Visibility Toggles (Top Right below zoom controls) */}
-      <div className="absolute top-16 right-4 z-[1000] flex flex-col gap-1.5 bg-slate-900/95 p-2 rounded-xl border border-slate-700 shadow-2xl backdrop-blur text-xs">
+      <div className="absolute top-16 right-4 z-[1000] flex flex-col gap-1.5 bg-white/95 p-2 rounded-2xl border border-slate-200 shadow-xl backdrop-blur text-xs">
         <button
           onClick={() => setShowVehicles(!showVehicles)}
-          className={`px-2.5 py-1 rounded-lg transition flex items-center justify-between gap-3 font-semibold ${
-            showVehicles ? 'bg-emerald-950 text-emerald-300 border border-emerald-500/40' : 'text-slate-400 hover:text-slate-200'
+          className={`px-3 py-1.5 rounded-xl transition flex items-center justify-between gap-3 font-bold ${
+            showVehicles ? 'bg-emerald-50 text-emerald-800 border border-emerald-300' : 'text-slate-500 hover:text-slate-800'
           }`}
         >
           <span className="flex items-center gap-1.5">
-            <span className={`w-2 h-2 rounded-full ${showVehicles ? 'bg-emerald-400 animate-ping' : 'bg-slate-600'}`}></span>
+            <span className={`w-2 h-2 rounded-full ${showVehicles ? 'bg-emerald-500 animate-ping' : 'bg-slate-400'}`}></span>
             Live Vehicles
           </span>
-          <span className="font-mono text-[10px]">{animatedVehicles.length}</span>
+          <span className="font-mono text-[10px] bg-white px-1.5 py-0.5 rounded border border-slate-200">{animatedVehicles.length}</span>
         </button>
 
         <button
           onClick={() => setShowRoutes(!showRoutes)}
-          className={`px-2.5 py-1 rounded-lg transition flex items-center justify-between gap-3 font-semibold ${
-            showRoutes ? 'bg-sky-950 text-sky-300 border border-sky-500/40' : 'text-slate-400 hover:text-slate-200'
+          className={`px-3 py-1.5 rounded-xl transition flex items-center justify-between gap-3 font-bold ${
+            showRoutes ? 'bg-sky-50 text-sky-800 border border-sky-300' : 'text-slate-500 hover:text-slate-800'
           }`}
         >
           <span className="flex items-center gap-1.5">
-            <span className={`w-2 h-2 rounded-full ${showRoutes ? 'bg-sky-400' : 'bg-slate-600'}`}></span>
+            <span className={`w-2 h-2 rounded-full ${showRoutes ? 'bg-sky-500' : 'bg-slate-400'}`}></span>
             Routes
           </span>
-          <span className="font-mono text-[10px]">{routes.length}</span>
+          <span className="font-mono text-[10px] bg-white px-1.5 py-0.5 rounded border border-slate-200">{routes.length}</span>
         </button>
 
         <button
           onClick={() => setShowStops(!showStops)}
-          className={`px-2.5 py-1 rounded-lg transition flex items-center justify-between gap-3 font-semibold ${
-            showStops ? 'bg-cyan-950 text-cyan-300 border border-cyan-500/40' : 'text-slate-400 hover:text-slate-200'
+          className={`px-3 py-1.5 rounded-xl transition flex items-center justify-between gap-3 font-bold ${
+            showStops ? 'bg-teal-50 text-teal-800 border border-teal-300' : 'text-slate-500 hover:text-slate-800'
           }`}
         >
           <span className="flex items-center gap-1.5">
-            <span className={`w-2 h-2 rounded-full ${showStops ? 'bg-cyan-400' : 'bg-slate-600'}`}></span>
+            <span className={`w-2 h-2 rounded-full ${showStops ? 'bg-teal-500' : 'bg-slate-400'}`}></span>
             Stops
           </span>
-          <span className="font-mono text-[10px]">{stops.length}</span>
+          <span className="font-mono text-[10px] bg-white px-1.5 py-0.5 rounded border border-slate-200">{stops.length}</span>
         </button>
 
         <button
           onClick={() => setShowAdvisories(!showAdvisories)}
-          className={`px-2.5 py-1 rounded-lg transition flex items-center justify-between gap-3 font-semibold ${
-            showAdvisories ? 'bg-rose-950 text-rose-300 border border-rose-500/40' : 'text-slate-400 hover:text-slate-200'
+          className={`px-3 py-1.5 rounded-xl transition flex items-center justify-between gap-3 font-bold ${
+            showAdvisories ? 'bg-rose-50 text-rose-800 border border-rose-300' : 'text-slate-500 hover:text-slate-800'
           }`}
         >
           <span className="flex items-center gap-1.5">
-            <span className={`w-2 h-2 rounded-full ${showAdvisories ? 'bg-rose-400' : 'bg-slate-600'}`}></span>
+            <span className={`w-2 h-2 rounded-full ${showAdvisories ? 'bg-rose-500' : 'bg-slate-400'}`}></span>
             Diversions
           </span>
-          <span className="font-mono text-[10px]">{notices.length}</span>
+          <span className="font-mono text-[10px] bg-white px-1.5 py-0.5 rounded border border-slate-200">{notices.length}</span>
         </button>
       </div>
 
       {/* Selected Vehicle Live Inspector Card (Bottom Left) */}
       {activeVehicle && (
-        <div className="absolute bottom-4 left-4 z-[1000] w-80 bg-slate-900/95 border border-cyan-500/50 p-4 rounded-2xl shadow-2xl backdrop-blur text-xs animate-fadeIn space-y-3">
-          <div className="flex items-center justify-between pb-2 border-b border-slate-800">
+        <div className="absolute bottom-4 left-4 z-[1000] w-80 bg-white/95 border border-teal-500/40 p-4 rounded-3xl shadow-2xl backdrop-blur text-xs animate-fadeIn space-y-3">
+          <div className="flex items-center justify-between pb-2 border-b border-slate-200">
             <div className="flex items-center gap-2">
-              <span className="w-2.5 h-2.5 rounded-full bg-emerald-400 animate-ping"></span>
-              <span className="font-bold text-slate-100">{activeVehicle.vehicle_label}</span>
+              <span className="w-2.5 h-2.5 rounded-full bg-emerald-500 animate-ping"></span>
+              <span className="font-black text-[#0B172E] text-sm">{activeVehicle.vehicle_label}</span>
             </div>
             <button
               onClick={() => setActiveVehicle(null)}
-              className="text-slate-400 hover:text-white"
+              className="text-slate-400 hover:text-slate-700 font-bold p-1"
             >
               ✕
             </button>
           </div>
 
           <div className="grid grid-cols-2 gap-2 text-[11px]">
-            <div className="p-2 bg-slate-950 rounded-lg">
-              <span className="text-slate-400 block">Current Speed</span>
-              <strong className="text-cyan-400 font-mono text-sm">{activeVehicle.speed || activeVehicle.speed_kmh} km/h</strong>
+            <div className="p-2.5 bg-slate-50 border border-slate-200 rounded-xl">
+              <span className="text-slate-500 block font-semibold">Live GPS Speed</span>
+              <strong className="text-teal-700 font-mono text-base font-black">{activeVehicle.speed || activeVehicle.speed_kmh} km/h</strong>
             </div>
-            <div className="p-2 bg-slate-950 rounded-lg">
-              <span className="text-slate-400 block">Fleet Status</span>
-              <strong className={activeVehicle.status === 'delayed' ? 'text-red-400' : 'text-emerald-400'}>
+            <div className="p-2.5 bg-slate-50 border border-slate-200 rounded-xl">
+              <span className="text-slate-500 block font-semibold">Fleet Status</span>
+              <strong className={`font-black ${activeVehicle.status === 'delayed' ? 'text-red-600' : 'text-emerald-700'}`}>
                 {activeVehicle.status === 'delayed' ? 'Delayed (+8m)' : 'On Schedule'}
               </strong>
             </div>
           </div>
 
-          <div className="text-[11px] text-slate-300 space-y-1">
-            <div>Route: <strong className="text-white">{activeVehicle.route_short_name || activeVehicle.route_id}</strong></div>
-            <div>Authority: <strong className="text-white">{activeVehicle.agency_name || 'Transit Corporation'}</strong></div>
+          <div className="text-[11px] text-slate-700 space-y-1">
+            <div>Route: <strong className="text-[#0B172E]">{activeVehicle.route_short_name || activeVehicle.route_id}</strong></div>
+            <div>Authority: <strong className="text-[#0B172E]">{activeVehicle.agency_name || 'Transit Corporation'}</strong></div>
           </div>
 
-          <div className="pt-2 border-t border-slate-800 flex items-center gap-2">
+          <div className="pt-2 border-t border-slate-200 flex items-center gap-2">
             <button
               onClick={() => {
                 if (followingVehicleId === activeVehicle.id) {
@@ -647,10 +647,10 @@ export function MapView({
                   }
                 }
               }}
-              className={`flex-1 py-1.5 rounded-lg font-bold flex items-center justify-center gap-1.5 transition ${
+              className={`flex-1 py-2 rounded-xl font-bold flex items-center justify-center gap-1.5 transition text-xs shadow-sm ${
                 followingVehicleId === activeVehicle.id
-                  ? 'bg-amber-600 text-white'
-                  : 'bg-cyan-600 hover:bg-cyan-500 text-white'
+                  ? 'bg-amber-600 text-white hover:bg-amber-500'
+                  : 'bg-teal-600 hover:bg-teal-500 text-white'
               }`}
             >
               <Navigation className="w-3.5 h-3.5" />
@@ -661,18 +661,18 @@ export function MapView({
       )}
 
       {/* Floating Legend (Bottom Right) */}
-      <div className="absolute bottom-4 right-4 z-[1000] bg-slate-900/95 border border-slate-800 p-3 rounded-xl shadow-2xl backdrop-blur text-xs max-w-xs text-slate-300">
-        <div className="flex items-center gap-1.5 font-bold text-slate-100 mb-2 pb-1.5 border-b border-slate-800">
-          <Layers className="w-3.5 h-3.5 text-cyan-400" />
+      <div className="absolute bottom-4 right-4 z-[1000] bg-white/95 border border-slate-200 p-3.5 rounded-2xl shadow-xl backdrop-blur text-xs max-w-xs text-slate-700">
+        <div className="flex items-center gap-1.5 font-black text-[#0B172E] mb-2 pb-1.5 border-b border-slate-200">
+          <Layers className="w-3.5 h-3.5 text-teal-600" />
           Interactive Legend
         </div>
-        <div className="space-y-1.5 text-[11px]">
+        <div className="space-y-1.5 text-[11px] font-medium">
           <div className="flex items-center gap-2">
-            <span className="w-3 h-3 rounded-full border-2 border-emerald-400 bg-emerald-950 animate-pulse"></span>
+            <span className="w-3 h-3 rounded-full border-2 border-emerald-500 bg-emerald-100 animate-pulse"></span>
             <span>Live Moving Vehicle (Real-time GPS)</span>
           </div>
           <div className="flex items-center gap-2">
-            <span className="w-5 h-1.5 rounded bg-cyan-400"></span>
+            <span className="w-5 h-1.5 rounded bg-teal-500"></span>
             <span>Active Public Transit Route</span>
           </div>
           <div className="flex items-center gap-2">
@@ -680,7 +680,7 @@ export function MapView({
             <span>Advisory Diversion Corridor</span>
           </div>
           <div className="flex items-center gap-2">
-            <span className="w-3 h-2 bg-slate-950 border border-sky-400 rounded-sm"></span>
+            <span className="w-3 h-2 bg-slate-800 border border-sky-400 rounded-sm"></span>
             <span>Scheduled Stop (Click for ETA)</span>
           </div>
         </div>

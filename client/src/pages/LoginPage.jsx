@@ -37,27 +37,27 @@ export function LoginPage({ onNavigate }) {
 
   return (
     <div className="min-h-[80vh] flex items-center justify-center px-4 py-12">
-      <div className="w-full max-w-md bg-slate-900 border border-slate-800 rounded-3xl p-8 shadow-2xl relative overflow-hidden">
-        {/* Subtle top cyan line */}
-        <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-cyan-500 via-teal-400 to-blue-600"></div>
+      <div className="w-full max-w-md bg-white border border-slate-200 rounded-3xl p-8 shadow-xl relative overflow-hidden">
+        {/* Subtle top teal bar */}
+        <div className="absolute top-0 left-0 right-0 h-1.5 bg-gradient-to-r from-teal-500 via-cyan-500 to-blue-600"></div>
 
         {/* Branding header */}
         <div className="text-center mb-8 space-y-2">
-          <div className="w-12 h-12 rounded-2xl bg-cyan-600/20 text-cyan-400 border border-cyan-500/30 flex items-center justify-center mx-auto mb-3">
+          <div className="w-12 h-12 rounded-2xl bg-teal-50 text-teal-600 border border-teal-200 flex items-center justify-center mx-auto mb-3 shadow-sm">
             <Bus className="w-6 h-6" />
           </div>
-          <h1 className="text-2xl font-black text-slate-100">
+          <h1 className="text-2xl font-black text-[#0B172E]">
             Sign In to TransitNotice
           </h1>
-          <p className="text-xs text-slate-400">
+          <p className="text-xs text-slate-500">
             Access your personalized commute dashboard & route alerts
           </p>
         </div>
 
         {/* Error Alert */}
         {error && (
-          <div className="mb-6 p-3.5 bg-red-950/60 border border-red-800 rounded-xl text-xs text-red-300 flex items-center gap-2">
-            <AlertCircle className="w-4 h-4 text-red-400 shrink-0" />
+          <div className="mb-6 p-3.5 bg-red-50 border border-red-200 rounded-xl text-xs text-red-700 flex items-center gap-2">
+            <AlertCircle className="w-4 h-4 text-red-500 shrink-0" />
             <span>{error}</span>
           </div>
         )}
@@ -65,7 +65,7 @@ export function LoginPage({ onNavigate }) {
         {/* Form */}
         <form onSubmit={handleSubmit} className="space-y-4 text-xs">
           <div>
-            <label className="block text-slate-300 font-semibold mb-1.5">
+            <label className="block text-slate-700 font-bold mb-1.5">
               Email or Username
             </label>
             <div className="relative">
@@ -76,14 +76,14 @@ export function LoginPage({ onNavigate }) {
                 value={emailOrUsername}
                 onChange={(e) => setEmailOrUsername(e.target.value)}
                 placeholder="rajesh_transit or commuter@transitnotice.gov.in"
-                className="w-full pl-10 pr-4 py-2.5 bg-slate-950 border border-slate-700 rounded-xl text-slate-100 placeholder-slate-500 focus:outline-none focus:border-cyan-400 transition"
+                className="w-full pl-10 pr-4 py-2.5 bg-slate-50 border border-slate-300 rounded-xl text-slate-900 placeholder-slate-400 focus:outline-none focus:border-teal-500 focus:bg-white transition"
               />
             </div>
           </div>
 
           <div>
             <div className="flex items-center justify-between mb-1.5">
-              <label className="block text-slate-300 font-semibold">
+              <label className="block text-slate-700 font-bold">
                 Password
               </label>
             </div>
@@ -95,12 +95,12 @@ export function LoginPage({ onNavigate }) {
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 placeholder="Enter your password"
-                className="w-full pl-10 pr-10 py-2.5 bg-slate-950 border border-slate-700 rounded-xl text-slate-100 placeholder-slate-500 focus:outline-none focus:border-cyan-400 transition"
+                className="w-full pl-10 pr-10 py-2.5 bg-slate-50 border border-slate-300 rounded-xl text-slate-900 placeholder-slate-400 focus:outline-none focus:border-teal-500 focus:bg-white transition"
               />
               <button
                 type="button"
                 onClick={() => setShowPassword(!showPassword)}
-                className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-200 transition"
+                className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-600 transition"
                 aria-label={showPassword ? 'Hide password' : 'Show password'}
               >
                 {showPassword ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
@@ -111,7 +111,7 @@ export function LoginPage({ onNavigate }) {
           <button
             type="submit"
             disabled={loading}
-            className="w-full py-3 bg-gradient-to-r from-cyan-500 to-teal-500 hover:from-cyan-400 hover:to-teal-400 text-slate-950 font-bold rounded-xl text-sm flex items-center justify-center gap-2 shadow-lg shadow-cyan-500/20 transition mt-2 disabled:opacity-50"
+            className="w-full py-3 bg-teal-600 hover:bg-teal-500 text-white font-bold rounded-xl text-sm flex items-center justify-center gap-2 shadow-md shadow-teal-600/20 transition mt-2 disabled:opacity-50"
           >
             {loading ? 'Authenticating...' : 'Sign In'}
             <ArrowRight className="w-4 h-4" />
@@ -119,23 +119,23 @@ export function LoginPage({ onNavigate }) {
         </form>
 
         {/* Quick Demo Login Preset Button */}
-        <div className="mt-6 pt-5 border-t border-slate-800 text-center">
+        <div className="mt-6 pt-5 border-t border-slate-200 text-center">
           <button
             type="button"
             onClick={fillDemoCommuter}
-            className="w-full py-2 bg-slate-800/80 hover:bg-slate-800 text-cyan-300 rounded-xl text-xs font-semibold flex items-center justify-center gap-1.5 transition border border-slate-700"
+            className="w-full py-2.5 bg-slate-100 hover:bg-slate-200 text-slate-800 rounded-xl text-xs font-bold flex items-center justify-center gap-1.5 transition border border-slate-300 shadow-sm"
           >
-            <ShieldCheck className="w-3.5 h-3.5" />
+            <ShieldCheck className="w-3.5 h-3.5 text-teal-600" />
             Quick Demo: Autofill Commuter Credentials
           </button>
         </div>
 
         {/* Toggle to Register */}
-        <div className="mt-6 text-center text-xs text-slate-400">
+        <div className="mt-6 text-center text-xs text-slate-600">
           Don't have a commuter account yet?{' '}
           <button
             onClick={() => onNavigate('register')}
-            className="text-cyan-400 hover:underline font-bold"
+            className="text-teal-600 hover:underline font-bold"
           >
             Register Here
           </button>

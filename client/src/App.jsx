@@ -24,7 +24,7 @@ export function AppContent() {
   };
 
   return (
-    <div className="min-h-screen flex flex-col bg-slate-950 text-slate-100 selection:bg-cyan-500 selection:text-slate-950">
+    <div className="min-h-screen flex flex-col bg-[#F8FAFC] text-slate-900 selection:bg-cyan-500 selection:text-white">
       <Navbar activeTab={activeTab} onNavigate={handleNavigate} />
 
       <main className="flex-1">
