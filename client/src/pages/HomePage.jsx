@@ -1,7 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import { api } from '../api';
 import { NoticeCard } from '../components/NoticeCard';
-import { Bus, Train, Compass, ShieldCheck, ArrowRight, Activity, MapPin, Search, AlertCircle, RefreshCw } from 'lucide-react';
+import { MapView } from '../components/MapView';
+import { 
+  Bus, Train, Compass, ShieldCheck, ArrowRight, Activity, MapPin, 
+  Search, AlertCircle, RefreshCw, Navigation, Gauge, Radio, Layers, 
+  Map as MapIcon, CheckCircle, ChevronRight, Eye
+} from 'lucide-react';
 
 export function HomePage({ onNavigate, onSelectNotice }) {
   const [metrics, setMetrics] = useState({
@@ -11,19 +16,35 @@ export function HomePage({ onNavigate, onSelectNotice }) {
     trackedVehicles: 8
   });
   const [featuredNotices, setFeaturedNotices] = useState([]);
+  const [liveVehicles, setLiveVehicles] = useState([]);
+  const [allRoutes, setAllRoutes] = useState([]);
   const [loading, setLoading] = useState(true);
   const [searchQuery, setSearchQuery] = useState('');
+
+  // Home Page Live Fleet State
+  const [fleetViewMode, setFleetViewMode] = useState('map'); // 'map' or 'cards'
+  const [selectedHomeVehicleId, setSelectedHomeVehicleId] = useState(null);
+  const [selectedHomeRouteId, setSelectedHomeRouteId] = useState(null);
+  const [selectedCityFilter, setSelectedCityFilter] = useState('All');
 
   useEffect(() => {
     Promise.all([
       api.getSystemHealth().catch(() => null),
-      api.getNotices({ limit: 4, status: 'active' }).catch(() => ({ notices: [] }))
-    ]).then(([healthData, noticesData]) => {
+      api.getNotices({ limit: 4, status: 'active' }).catch(() => ({ notices: [] })),
+      api.getVehicles().catch(() => ({ vehicles: [] })),
+      api.getRoutes().catch(() => ({ routes: [] }))
+    ]).then(([healthData, noticesData, vehiclesData, routesData]) => {
       if (healthData && healthData.metrics) {
         setMetrics(healthData.metrics);
       }
       if (noticesData && noticesData.notices) {
         setFeaturedNotices(noticesData.notices);
+      }
+      if (vehiclesData && vehiclesData.vehicles) {
+        setLiveVehicles(vehiclesData.vehicles);
+      }
+      if (routesData && routesData.routes) {
+        setAllRoutes(routesData.routes);
       }
     }).finally(() => setLoading(false));
   }, []);
@@ -32,6 +53,17 @@ export function HomePage({ onNavigate, onSelectNotice }) {
     e.preventDefault();
     onNavigate('tracker', { query: searchQuery });
   };
+
+  // Filter vehicles by city
+  const filteredVehicles = liveVehicles.filter(v => {
+    if (selectedCityFilter === 'All') return true;
+    if (selectedCityFilter === 'Delhi' && (v.agency_name?.includes('Delhi') || v.route_id?.startsWith('DTC') || v.route_id?.startsWith('DMRC'))) return true;
+    if (selectedCityFilter === 'Bengaluru' && (v.agency_name?.includes('BMTC') || v.route_id?.startsWith('BMTC'))) return true;
+    if (selectedCityFilter === 'Chennai' && (v.agency_name?.includes('MTC') || v.route_id?.startsWith('MTC'))) return true;
+    if (selectedCityFilter === 'Mumbai' && (v.agency_name?.includes('BEST') || v.route_id?.startsWith('BEST'))) return true;
+    if (selectedCityFilter === 'Kerala' && (v.agency_name?.includes('KSRTC') || v.route_id?.startsWith('KSRTC'))) return true;
+    return false;
+  });
 
   return (
     <div className="space-y-12 pb-16">
@@ -285,6 +317,199 @@ export function HomePage({ onNavigate, onSelectNotice }) {
         </div>
       </section>
 
+      {/* NEW SECTION: LIVE BUS FLEET TRACKER RADAR (DIRECTLY ON HOME PAGE) */}
+      <section className="w-full px-4 sm:px-8 lg:px-12 xl:px-16 space-y-6">
+        <div className="bg-slate-900 border border-slate-800 rounded-2xl p-6 shadow-2xl space-y-6">
+          
+          {/* Header & Controls */}
+          <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 border-b border-slate-800 pb-4">
+            <div>
+              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-950 text-emerald-400 border border-emerald-600/40 text-[11px] font-bold mb-2">
+                <span className="w-2 h-2 rounded-full bg-emerald-400 animate-ping"></span>
+                <span>Live Fleet Radar & Real-Time Moving Buses</span>
+              </div>
+              <h2 className="text-2xl sm:text-3xl font-black text-slate-100 flex items-center gap-2">
+                Track Live Buses Right From Home
+              </h2>
+              <p className="text-xs text-slate-400 mt-1">
+                Real-time moving transponders with animated speed telemetry, heading angle, and live corridor tracking.
+              </p>
+            </div>
+
+            <div className="flex flex-wrap items-center gap-2">
+              {/* View Switcher: Map vs Cards */}
+              <div className="flex items-center bg-slate-950 p-1 rounded-xl border border-slate-800 text-xs font-bold">
+                <button
+                  type="button"
+                  onClick={() => setFleetViewMode('map')}
+                  className={`py-1.5 px-3 rounded-lg flex items-center gap-1.5 transition cursor-pointer ${
+                    fleetViewMode === 'map'
+                      ? 'bg-cyan-500 text-slate-950 shadow-md shadow-cyan-500/20'
+                      : 'text-slate-400 hover:text-white'
+                  }`}
+                >
+                  <MapIcon className="w-3.5 h-3.5" />
+                  Live Google Map
+                </button>
+                <button
+                  type="button"
+                  onClick={() => setFleetViewMode('cards')}
+                  className={`py-1.5 px-3 rounded-lg flex items-center gap-1.5 transition cursor-pointer ${
+                    fleetViewMode === 'cards'
+                      ? 'bg-cyan-500 text-slate-950 shadow-md shadow-cyan-500/20'
+                      : 'text-slate-400 hover:text-white'
+                  }`}
+                >
+                  <Bus className="w-3.5 h-3.5" />
+                  Fleet Cards ({filteredVehicles.length})
+                </button>
+              </div>
+
+              <button
+                type="button"
+                onClick={() => onNavigate('tracker')}
+                className="px-4 py-2 bg-slate-800 hover:bg-slate-700 text-cyan-400 rounded-xl text-xs font-bold flex items-center gap-1.5 transition border border-slate-700 cursor-pointer"
+              >
+                <span>Full Screen Tracker</span>
+                <ArrowRight className="w-3.5 h-3.5" />
+              </button>
+            </div>
+          </div>
+
+          {/* Quick City Filters */}
+          <div className="flex items-center gap-2 overflow-x-auto pb-1 text-xs">
+            <span className="text-slate-400 font-bold shrink-0">Filter Corridor:</span>
+            {['All', 'Delhi', 'Bengaluru', 'Chennai', 'Mumbai', 'Kerala'].map(city => (
+              <button
+                key={city}
+                onClick={() => setSelectedCityFilter(city)}
+                className={`px-3 py-1.5 rounded-xl font-bold transition shrink-0 cursor-pointer ${
+                  selectedCityFilter === city
+                    ? 'bg-cyan-950 text-cyan-300 border border-cyan-500/60 shadow-sm'
+                    : 'bg-slate-950 text-slate-400 border border-slate-800 hover:text-slate-200'
+                }`}
+              >
+                {city}
+              </button>
+            ))}
+          </div>
+
+          {/* VIEW MODE 1: EMBEDDED LIVE GOOGLE MAP RIGHT ON HOME */}
+          {fleetViewMode === 'map' && (
+            <div className="space-y-3">
+              <div className="h-[520px] w-full rounded-2xl overflow-hidden border border-slate-800 shadow-2xl relative">
+                <MapView
+                  routes={allRoutes}
+                  vehicles={filteredVehicles}
+                  notices={featuredNotices}
+                  selectedVehicleId={selectedHomeVehicleId}
+                  selectedRouteId={selectedHomeRouteId}
+                  onSelectVehicle={(veh) => setSelectedHomeVehicleId(veh.id)}
+                  onSelectRoute={(rt) => setSelectedHomeRouteId(rt.id)}
+                />
+              </div>
+
+              {/* Quick-Click Bus Carousel Under Map */}
+              <div className="flex items-center gap-2 overflow-x-auto py-2">
+                <span className="text-xs font-bold text-slate-400 shrink-0">Live Transponders:</span>
+                {filteredVehicles.map(veh => (
+                  <button
+                    key={veh.id}
+                    onClick={() => {
+                      setSelectedHomeVehicleId(veh.id);
+                      setSelectedHomeRouteId(veh.route_id);
+                    }}
+                    className={`px-3 py-1.5 rounded-xl text-xs font-bold transition flex items-center gap-2 shrink-0 border cursor-pointer ${
+                      selectedHomeVehicleId === veh.id
+                        ? 'bg-cyan-500 text-slate-950 border-cyan-400 shadow-lg shadow-cyan-500/30'
+                        : 'bg-slate-950 hover:bg-slate-850 text-slate-200 border-slate-800'
+                    }`}
+                  >
+                    <span className={`w-2 h-2 rounded-full ${veh.status === 'delayed' ? 'bg-red-400' : 'bg-emerald-400 animate-ping'}`}></span>
+                    <span>{veh.vehicle_label}</span>
+                    <span className="font-mono opacity-80">{veh.speed_kmh || 26} km/h</span>
+                  </button>
+                ))}
+              </div>
+            </div>
+          )}
+
+          {/* VIEW MODE 2: RICH LIVE FLEET CARDS */}
+          {fleetViewMode === 'cards' && (
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
+              {filteredVehicles.map(v => (
+                <div
+                  key={v.id}
+                  className="p-4 bg-slate-950 border border-slate-800 hover:border-cyan-500/50 rounded-2xl shadow-xl transition space-y-3 group"
+                >
+                  <div className="flex items-center justify-between pb-2 border-b border-slate-900">
+                    <div className="flex items-center gap-2">
+                      <span className={`w-2.5 h-2.5 rounded-full ${v.status === 'delayed' ? 'bg-red-400' : 'bg-emerald-400 animate-ping'}`}></span>
+                      <strong className="text-slate-100 text-sm group-hover:text-cyan-300 transition-colors">
+                        {v.vehicle_label}
+                      </strong>
+                    </div>
+                    <span className={`text-[10px] font-bold px-2 py-0.5 rounded-full ${
+                      v.status === 'delayed' 
+                        ? 'bg-red-950 text-red-300 border border-red-700/60' 
+                        : 'bg-emerald-950 text-emerald-300 border border-emerald-700/60'
+                    }`}>
+                      {v.status === 'delayed' ? 'Delayed (+8m)' : 'On Schedule'}
+                    </span>
+                  </div>
+
+                  <div className="space-y-1 text-xs">
+                    <div className="text-slate-300 font-semibold flex items-center justify-between">
+                      <span>Corridor: {v.route_short_name || v.route_id}</span>
+                      <span className="text-[10px] text-slate-500 uppercase">{v.agency_name}</span>
+                    </div>
+                    <div className="text-[11px] text-slate-400 truncate">
+                      {allRoutes.find(r => r.id === v.route_id)?.route_long_name || 'State Scheduled Public Corridor'}
+                    </div>
+                  </div>
+
+                  <div className="grid grid-cols-2 gap-2 text-xs pt-1">
+                    <div className="p-2 bg-slate-900 rounded-xl border border-slate-800/80">
+                      <span className="text-[10px] text-slate-500 block">Instant Speed</span>
+                      <strong className="text-cyan-400 font-mono text-sm">{v.speed_kmh || 24} km/h</strong>
+                    </div>
+                    <div className="p-2 bg-slate-900 rounded-xl border border-slate-800/80">
+                      <span className="text-[10px] text-slate-500 block">GPS Telemetry</span>
+                      <strong className="text-emerald-400 text-xs">🟢 Live Active</strong>
+                    </div>
+                  </div>
+
+                  {/* Actions */}
+                  <div className="pt-2 border-t border-slate-900 flex items-center gap-2">
+                    <button
+                      type="button"
+                      onClick={() => {
+                        setSelectedHomeVehicleId(v.id);
+                        setSelectedHomeRouteId(v.route_id);
+                        setFleetViewMode('map');
+                      }}
+                      className="flex-1 py-1.5 px-2 bg-slate-900 hover:bg-slate-800 text-slate-200 hover:text-white rounded-lg text-xs font-bold transition flex items-center justify-center gap-1.5 border border-slate-800 cursor-pointer"
+                    >
+                      <MapIcon className="w-3 h-3 text-cyan-400" />
+                      View on Map
+                    </button>
+                    <button
+                      type="button"
+                      onClick={() => onNavigate('tracker', { query: v.route_short_name || v.route_id })}
+                      className="flex-1 py-1.5 px-2 bg-gradient-to-r from-cyan-600 to-teal-600 hover:from-cyan-500 hover:to-teal-500 text-white rounded-lg text-xs font-bold transition flex items-center justify-center gap-1.5 shadow cursor-pointer"
+                    >
+                      <Navigation className="w-3 h-3" />
+                      Track Bus
+                    </button>
+                  </div>
+                </div>
+              ))}
+            </div>
+          )}
+
+        </div>
+      </section>
+
       {/* Featured Active Advisories */}
       <section className="w-full px-4 sm:px-8 lg:px-12 xl:px-16 space-y-6">
         <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
@@ -299,7 +524,7 @@ export function HomePage({ onNavigate, onSelectNotice }) {
 
           <button
             onClick={() => onNavigate('tracker')}
-            className="px-4 py-2 bg-slate-800 hover:bg-slate-700 text-cyan-400 rounded-xl text-xs font-bold flex items-center gap-1.5 transition border border-slate-700"
+            className="px-4 py-2 bg-slate-800 hover:bg-slate-700 text-cyan-400 rounded-xl text-xs font-bold flex items-center gap-1.5 transition border border-slate-700 cursor-pointer"
           >
             Explore All Advisories
             <ArrowRight className="w-4 h-4" />
