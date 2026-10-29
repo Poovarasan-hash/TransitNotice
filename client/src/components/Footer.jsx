@@ -16,10 +16,10 @@ export function Footer({ onNavigate }) {
                 Transit<span className="text-teal-600">Notice</span>
               </span>
             </div>
-            <p className="text-slate-600 leading-relaxed text-[11px] font-medium">
+            <p className="text-slate-600 leading-relaxed text-xs font-medium">
               A public service intelligence platform tracking bus, metro, and suburban rail advisories, route diversions, and real-time updates across India.
             </p>
-            <div className="flex items-center gap-1.5 text-[11px] text-emerald-700 font-bold">
+            <div className="flex items-center gap-1.5 text-xs text-emerald-700 font-bold">
               <ShieldCheck className="w-3.5 h-3.5 text-emerald-600" />
               100% Permitted Open Data & GTFS Feeds
             </div>
@@ -27,10 +27,10 @@ export function Footer({ onNavigate }) {
 
           {/* Col 2: Navigation */}
           <div>
-            <h4 className="font-black text-slate-900 uppercase tracking-wider text-[11px] mb-3">
+            <h4 className="font-black text-slate-900 uppercase tracking-wider text-xs mb-3">
               Platform Features
             </h4>
-            <ul className="space-y-2 text-[11px] font-medium">
+            <ul className="space-y-2 text-xs font-medium">
               <li>
                 <button onClick={() => onNavigate('tracker')} className="text-slate-600 hover:text-teal-700 transition cursor-pointer">
                   Interactive India Transit Map
@@ -56,10 +56,10 @@ export function Footer({ onNavigate }) {
 
           {/* Col 3: Connected Feeds */}
           <div>
-            <h4 className="font-black text-slate-900 uppercase tracking-wider text-[11px] mb-3">
+            <h4 className="font-black text-slate-900 uppercase tracking-wider text-xs mb-3">
               Official Connected Feeds
             </h4>
-            <ul className="space-y-2 text-[11px] font-medium">
+            <ul className="space-y-2 text-xs font-medium">
               <li className="flex items-center gap-1.5">
                 <span className="w-1.5 h-1.5 rounded-full bg-emerald-500"></span>
                 <span className="text-slate-700">Delhi Open Transit Data (DTC & DMRC)</span>
@@ -84,8 +84,8 @@ export function Footer({ onNavigate }) {
           </div>
 
           {/* Col 4: Integrity Policy */}
-          <div className="space-y-2 text-[11px]">
-            <h4 className="font-black text-slate-900 uppercase tracking-wider text-[11px] mb-3">
+          <div className="space-y-2 text-xs">
+            <h4 className="font-black text-slate-900 uppercase tracking-wider text-xs mb-3">
               Data Integrity Policy
             </h4>
             <p className="leading-relaxed text-slate-600 font-medium">
@@ -94,7 +94,7 @@ export function Footer({ onNavigate }) {
           </div>
         </div>
 
-        <div className="mt-8 pt-6 border-t border-slate-200 flex flex-col sm:flex-row items-center justify-between gap-4 text-[11px] text-slate-500 font-medium">
+        <div className="mt-8 pt-6 border-t border-slate-200 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-slate-500 font-medium">
           <div>
             &copy; {new Date().getFullYear()} TransitNotice India. Built for Public Good & Mini Project 2.
           </div>

@@ -113,7 +113,7 @@ export function DashboardPage({ onNavigate }) {
               <h1 className="text-xl sm:text-2xl font-black text-slate-900">
                 {user ? `Welcome back, ${user.username}` : 'Commuter Intelligence Dashboard'}
               </h1>
-              <span className={`text-[10px] uppercase font-bold px-2.5 py-0.5 rounded-full border ${
+              <span className={`text-xs uppercase font-bold px-2.5 py-0.5 rounded-full border ${
                 user ? 'bg-teal-50 text-teal-800 border-teal-200' : 'bg-amber-50 text-amber-800 border-amber-200'
               }`}>
                 {user ? (user.role || 'commuter') : 'Guest Explorer'}
@@ -224,7 +224,7 @@ export function DashboardPage({ onNavigate }) {
         {/* Left Column: Preferences Manager */}
         <div className="lg:col-span-5 bg-white border border-slate-200/90 rounded-3xl p-6 shadow-sm space-y-5 text-slate-900">
           <div className="border-b border-slate-100 pb-3 flex items-center justify-between">
-            <h2 className="text-base font-black text-[slate-900] flex items-center gap-2">
+            <h2 className="text-base font-black text-slate-900 flex items-center gap-2">
               <Heart className="w-4 h-4 text-rose-500" />
               My Commuter Preferences
             </h2>
@@ -324,7 +324,7 @@ export function DashboardPage({ onNavigate }) {
         <div className="lg:col-span-7 space-y-6">
           <div className="bg-white border border-slate-200/90 rounded-3xl p-6 shadow-sm space-y-4">
             <div className="flex items-center justify-between border-b border-slate-100 pb-3">
-              <h2 className="text-base font-black text-[slate-900] flex items-center gap-2">
+              <h2 className="text-base font-black text-slate-900 flex items-center gap-2">
                 <Bell className="w-4 h-4 text-teal-600" />
                 Advisories in Your Commute Zone ({userNotices.length})
               </h2>
@@ -353,7 +353,7 @@ export function DashboardPage({ onNavigate }) {
           {/* Agency Freshness & System Health Table */}
           <div className="bg-white border border-slate-200/90 rounded-3xl p-6 shadow-sm space-y-4 text-xs">
             <div className="flex items-center justify-between border-b border-slate-100 pb-3">
-              <h2 className="text-base font-black text-[slate-900] flex items-center gap-2">
+              <h2 className="text-base font-black text-slate-900 flex items-center gap-2">
                 <ShieldCheck className="w-4 h-4 text-teal-600" />
                 Connected Transport Agencies & Health
               </h2>
@@ -368,14 +368,14 @@ export function DashboardPage({ onNavigate }) {
                   className="py-3 flex items-center justify-between hover:bg-slate-50 px-2 rounded-xl transition cursor-pointer group"
                 >
                   <div>
-                    <div className="font-bold text-[slate-900] group-hover:text-teal-700 transition-colors">{agency.name}</div>
+                    <div className="font-bold text-slate-900 group-hover:text-teal-700 transition-colors">{agency.name}</div>
                     <div className="text-[11px] text-slate-500">{agency.status_message}</div>
                   </div>
                   <div className="text-right">
-                    <span className="px-2.5 py-0.5 rounded-full text-[10px] font-bold bg-emerald-50 text-emerald-800 border border-emerald-300">
+                    <span className="px-2.5 py-0.5 rounded-full text-xs font-bold bg-emerald-50 text-emerald-800 border border-emerald-300">
                       {agency.feed_type}
                     </span>
-                    <div className="text-[10px] text-slate-400 mt-0.5">
+                    <div className="text-xs text-slate-400 mt-0.5">
                       Checked: {new Date(agency.last_checked_at).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
                     </div>
                   </div>

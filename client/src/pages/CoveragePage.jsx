@@ -99,7 +99,7 @@ export function CoveragePage({ onSelectDistrict }) {
             <Globe className="w-3.5 h-3.5 text-teal-600" />
             National Open Transit Registry
           </div>
-          <h1 className="text-2xl sm:text-3xl font-black text-[slate-900] flex items-center gap-2">
+          <h1 className="text-2xl sm:text-3xl font-black text-slate-900 flex items-center gap-2">
             Transport Coverage & Transparency Directory
           </h1>
           <p className="text-xs sm:text-sm text-slate-600 mt-1 max-w-2xl leading-relaxed">
@@ -297,7 +297,7 @@ export function CoveragePage({ onSelectDistrict }) {
             <div className="w-12 h-12 rounded-full bg-slate-100 flex items-center justify-center mx-auto text-slate-400">
               <Search className="w-6 h-6" />
             </div>
-            <h3 className="text-base font-bold text-[slate-900]">No Districts Match Filter</h3>
+            <h3 className="text-base font-bold text-slate-900">No Districts Match Filter</h3>
             <p className="text-xs text-slate-500">
               Try selecting a different state or clearing the search keyword.
             </p>
@@ -316,7 +316,7 @@ export function CoveragePage({ onSelectDistrict }) {
           filteredList.map(({ state, districts }) => (
             <div key={state} className="bg-white border border-slate-200/90 rounded-3xl p-6 shadow-sm space-y-5">
               <div className="flex items-center justify-between border-b border-slate-100 pb-4">
-                <h2 className="text-xl font-black text-[slate-900] flex items-center gap-2">
+                <h2 className="text-xl font-black text-slate-900 flex items-center gap-2">
                   <MapPin className="w-5 h-5 text-teal-600" />
                   {state}
                 </h2>
@@ -333,7 +333,7 @@ export function CoveragePage({ onSelectDistrict }) {
                   >
                     <div>
                       <div className="flex items-center justify-between gap-1 mb-2">
-                        <h3 className="font-extrabold text-[slate-900] text-sm truncate group-hover:text-teal-700 transition-colors">
+                        <h3 className="font-extrabold text-slate-900 text-sm truncate group-hover:text-teal-700 transition-colors">
                           {d.district}
                         </h3>
                         <CoverageLevelBadge level={d.coverage_level} />
@@ -395,7 +395,7 @@ export function CoveragePage({ onSelectDistrict }) {
                 <span className="text-[11px] font-extrabold uppercase text-teal-700 tracking-wider">
                   Open Transit Source Provenance
                 </span>
-                <h3 className="text-xl font-black text-[slate-900] flex items-center gap-2 mt-0.5">
+                <h3 className="text-xl font-black text-slate-900 flex items-center gap-2 mt-0.5">
                   <MapPin className="w-5 h-5 text-teal-600" />
                   {inspectDistrict.district}, {inspectDistrict.state}
                 </h3>
@@ -420,7 +420,7 @@ export function CoveragePage({ onSelectDistrict }) {
               <div className="grid grid-cols-2 gap-3">
                 <div className="p-4 bg-slate-50 rounded-2xl border border-slate-200">
                   <div className="text-slate-500 text-[11px] font-bold uppercase">Supported Transit Modes</div>
-                  <div className="text-[slate-900] font-extrabold mt-1 capitalize text-sm">
+                  <div className="text-slate-900 font-extrabold mt-1 capitalize text-sm">
                     {inspectDistrict.modes?.join(', ') || 'Bus'}
                   </div>
                 </div>
@@ -470,7 +470,7 @@ export function CoveragePage({ onSelectDistrict }) {
       {showRequestModal && (
         <div className="fixed inset-0 z-[2000] flex items-center justify-center p-4 bg-slate-900/40 backdrop-blur-sm animate-fadeIn">
           <div className="w-full max-w-md bg-white border border-slate-200 rounded-3xl p-6 shadow-2xl space-y-4 text-slate-900">
-            <h3 className="text-lg font-black text-[slate-900]">
+            <h3 className="text-lg font-black text-slate-900">
               Submit Open Transport Data Feed
             </h3>
             <p className="text-xs text-slate-500">
