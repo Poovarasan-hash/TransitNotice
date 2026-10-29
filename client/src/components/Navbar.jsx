@@ -95,20 +95,18 @@ export function Navbar({ activeTab, onNavigate }) {
             </button>
           ))}
 
-          {/* Prominent Dashboard Link When Logged In */}
-          {user && (
-            <button
-              onClick={() => onNavigate('dashboard')}
-              className={`px-3.5 py-2 rounded-lg text-xs font-bold flex items-center gap-1.5 transition ${
-                activeTab === 'dashboard'
-                  ? 'bg-cyan-500 text-slate-950 shadow-md shadow-cyan-500/30'
-                  : 'bg-cyan-950/70 text-cyan-300 hover:bg-cyan-900 border border-cyan-700/50'
-              }`}
-            >
-              <LayoutDashboard className="w-3.5 h-3.5" />
-              Dashboard
-            </button>
-          )}
+          {/* Prominent Dashboard Link */}
+          <button
+            onClick={() => onNavigate('dashboard')}
+            className={`px-3.5 py-2 rounded-lg text-xs font-bold flex items-center gap-1.5 transition cursor-pointer ${
+              activeTab === 'dashboard'
+                ? 'bg-cyan-500 text-slate-950 shadow-md shadow-cyan-500/30'
+                : 'bg-cyan-950/70 text-cyan-300 hover:bg-cyan-900 border border-cyan-700/50'
+            }`}
+          >
+            <LayoutDashboard className="w-3.5 h-3.5" />
+            Dashboard
+          </button>
         </nav>
 
         {/* Right Section: Alerts + User Auth */}
@@ -155,7 +153,11 @@ export function Navbar({ activeTab, onNavigate }) {
                     alerts.slice(0, 10).map(alert => (
                       <div
                         key={alert.id}
-                        className={`p-3 transition ${alert.is_read ? 'bg-slate-900/50 text-slate-400' : 'bg-slate-800/40 text-slate-200'}`}
+                        onClick={() => {
+                          setShowAlertsDropdown(false);
+                          onNavigate('tracker', { noticeId: alert.notice_id });
+                        }}
+                        className={`p-3 transition cursor-pointer hover:bg-slate-800 ${alert.is_read ? 'bg-slate-900/50 text-slate-400' : 'bg-slate-800/40 text-slate-200'}`}
                       >
                         <div className="flex items-center justify-between mb-1">
                           <span className="font-semibold text-cyan-300">
@@ -260,18 +262,16 @@ export function Navbar({ activeTab, onNavigate }) {
             </button>
           ))}
 
-          {user && (
-            <button
-              onClick={() => {
-                onNavigate('dashboard');
-                setMobileMenuOpen(false);
-              }}
-              className="w-full text-left px-3 py-2 rounded-lg font-bold bg-cyan-950 text-cyan-400 border border-cyan-800 flex items-center gap-2"
-            >
-              <LayoutDashboard className="w-4 h-4" />
-              My Commuter Dashboard
-            </button>
-          )}
+          <button
+            onClick={() => {
+              onNavigate('dashboard');
+              setMobileMenuOpen(false);
+            }}
+            className="w-full text-left px-3 py-2 rounded-lg font-bold bg-cyan-950 text-cyan-400 border border-cyan-800 flex items-center gap-2 cursor-pointer"
+          >
+            <LayoutDashboard className="w-4 h-4" />
+            My Commuter Dashboard
+          </button>
         </div>
       )}
     </header>

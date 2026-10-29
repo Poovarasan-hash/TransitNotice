@@ -70,12 +70,33 @@ export function HomePage({ onNavigate, onSelectNotice }) {
               </div>
               <button
                 type="submit"
-                className="px-6 py-3 bg-gradient-to-r from-cyan-500 to-teal-500 hover:from-cyan-400 hover:to-teal-400 text-slate-950 font-bold rounded-xl text-sm flex items-center justify-center gap-2 shadow-lg shadow-cyan-500/25 transition shrink-0"
+                className="px-6 py-3 bg-gradient-to-r from-cyan-500 to-teal-500 hover:from-cyan-400 hover:to-teal-400 text-slate-950 font-bold rounded-xl text-sm flex items-center justify-center gap-2 shadow-lg shadow-cyan-500/25 transition shrink-0 cursor-pointer"
               >
                 Track Now
                 <ArrowRight className="w-4 h-4" />
               </button>
             </form>
+
+            {/* Quick Filter Search Chips */}
+            <div className="flex flex-wrap items-center gap-2 text-xs pt-1">
+              <span className="text-slate-400 font-semibold">Quick Track:</span>
+              {[
+                { label: 'BMTC 500D (Bengaluru)', query: '500D' },
+                { label: 'DTC 534 (Delhi)', query: '534' },
+                { label: 'MTC 25G (Chennai)', query: '25G' },
+                { label: 'BEST 203 (Mumbai)', query: '203' },
+                { label: 'DMRC Blue Line', query: 'Metro' },
+              ].map(chip => (
+                <button
+                  key={chip.label}
+                  type="button"
+                  onClick={() => onNavigate('tracker', { query: chip.query })}
+                  className="px-2.5 py-1 rounded-lg bg-slate-900/90 hover:bg-cyan-950 text-slate-300 hover:text-cyan-300 border border-slate-800 hover:border-cyan-600/50 transition cursor-pointer text-[11px] font-medium"
+                >
+                  {chip.label}
+                </button>
+              ))}
+            </div>
 
             {/* Coverage Trust Indicators */}
             <div className="flex flex-wrap items-center justify-center lg:justify-start gap-4 text-xs text-slate-400 pt-2">
@@ -114,57 +135,84 @@ export function HomePage({ onNavigate, onSelectNotice }) {
                 </span>
               </div>
 
-              {/* Transit Modes Illustration Strip */}
+              {/* Transit Modes Interactive Strip */}
               <div className="grid grid-cols-4 gap-2 my-5 text-center">
-                <div className="p-3 bg-slate-950 rounded-xl border border-slate-800">
-                  <Bus className="w-6 h-6 text-sky-400 mx-auto mb-1" />
-                  <div className="text-[11px] font-bold text-slate-200">Bus</div>
+                <button
+                  type="button"
+                  onClick={() => onNavigate('tracker', { type: 'bus' })}
+                  className="p-3 bg-slate-950 hover:bg-cyan-950/60 rounded-xl border border-slate-800 hover:border-cyan-500/50 transition cursor-pointer group text-left sm:text-center"
+                >
+                  <Bus className="w-6 h-6 text-sky-400 mx-auto mb-1 group-hover:scale-110 transition-transform" />
+                  <div className="text-[11px] font-bold text-slate-200 group-hover:text-cyan-300">Bus</div>
                   <div className="text-[9px] text-slate-500">DTC / BMTC</div>
-                </div>
-                <div className="p-3 bg-slate-950 rounded-xl border border-slate-800">
-                  <Train className="w-6 h-6 text-indigo-400 mx-auto mb-1" />
-                  <div className="text-[11px] font-bold text-slate-200">Metro</div>
+                </button>
+                <button
+                  type="button"
+                  onClick={() => onNavigate('tracker', { type: 'metro' })}
+                  className="p-3 bg-slate-950 hover:bg-indigo-950/60 rounded-xl border border-slate-800 hover:border-indigo-500/50 transition cursor-pointer group text-left sm:text-center"
+                >
+                  <Train className="w-6 h-6 text-indigo-400 mx-auto mb-1 group-hover:scale-110 transition-transform" />
+                  <div className="text-[11px] font-bold text-slate-200 group-hover:text-indigo-300">Metro</div>
                   <div className="text-[9px] text-slate-500">DMRC / CMRL</div>
-                </div>
-                <div className="p-3 bg-slate-950 rounded-xl border border-slate-800">
-                  <Compass className="w-6 h-6 text-amber-400 mx-auto mb-1" />
-                  <div className="text-[11px] font-bold text-slate-200">Rail</div>
+                </button>
+                <button
+                  type="button"
+                  onClick={() => onNavigate('tracker', { type: 'rail' })}
+                  className="p-3 bg-slate-950 hover:bg-amber-950/60 rounded-xl border border-slate-800 hover:border-amber-500/50 transition cursor-pointer group text-left sm:text-center"
+                >
+                  <Compass className="w-6 h-6 text-amber-400 mx-auto mb-1 group-hover:scale-110 transition-transform" />
+                  <div className="text-[11px] font-bold text-slate-200 group-hover:text-amber-300">Rail</div>
                   <div className="text-[9px] text-slate-500">Suburban EMU</div>
-                </div>
-                <div className="p-3 bg-slate-950 rounded-xl border border-slate-800">
-                  <div className="w-6 h-6 text-teal-400 mx-auto mb-1 flex items-center justify-center font-bold text-xs">
+                </button>
+                <button
+                  type="button"
+                  onClick={() => onNavigate('tracker', { type: 'ferry' })}
+                  className="p-3 bg-slate-950 hover:bg-teal-950/60 rounded-xl border border-slate-800 hover:border-teal-500/50 transition cursor-pointer group text-left sm:text-center"
+                >
+                  <div className="w-6 h-6 text-teal-400 mx-auto mb-1 flex items-center justify-center font-bold text-xs group-hover:scale-110 transition-transform">
                     ⚓
                   </div>
-                  <div className="text-[11px] font-bold text-slate-200">Ferry</div>
+                  <div className="text-[11px] font-bold text-slate-200 group-hover:text-teal-300">Ferry</div>
                   <div className="text-[9px] text-slate-500">Water Metro</div>
-                </div>
+                </button>
               </div>
 
-              {/* Sample Live Telemetry Feed */}
+              {/* Sample Live Telemetry Feed (Clickable) */}
               <div className="space-y-2 text-xs">
-                <div className="p-2.5 rounded-lg bg-slate-950/80 border border-slate-800 flex items-center justify-between">
+                <button
+                  type="button"
+                  onClick={() => onNavigate('tracker', { query: '500D' })}
+                  className="w-full p-2.5 rounded-lg bg-slate-950/80 hover:bg-slate-950 border border-slate-800 hover:border-cyan-500/50 flex items-center justify-between text-left transition cursor-pointer group"
+                >
                   <div className="flex items-center gap-2">
                     <span className="w-2 h-2 rounded-full bg-emerald-400 animate-ping"></span>
-                    <span className="font-semibold text-slate-200">BMTC-500D (Volvo AC)</span>
+                    <span className="font-semibold text-slate-200 group-hover:text-cyan-300">BMTC-500D (Volvo AC)</span>
                   </div>
-                  <span className="text-[11px] text-cyan-400 font-mono">Bellandur ORR • 21 km/h</span>
-                </div>
-                <div className="p-2.5 rounded-lg bg-slate-950/80 border border-slate-800 flex items-center justify-between">
+                  <span className="text-[11px] text-cyan-400 font-mono">Bellandur ORR • 21 km/h →</span>
+                </button>
+                <button
+                  type="button"
+                  onClick={() => {
+                    if (onSelectNotice) onSelectNotice('DTC-ADV-2026-081');
+                    else onNavigate('tracker', { query: '534' });
+                  }}
+                  className="w-full p-2.5 rounded-lg bg-slate-950/80 hover:bg-slate-950 border border-slate-800 hover:border-amber-500/50 flex items-center justify-between text-left transition cursor-pointer group"
+                >
                   <div className="flex items-center gap-2">
                     <span className="w-2 h-2 rounded-full bg-red-400"></span>
-                    <span className="font-semibold text-slate-200">DTC Route 534 Diversion</span>
+                    <span className="font-semibold text-slate-200 group-hover:text-amber-300">DTC Route 534 Diversion</span>
                   </div>
-                  <span className="text-[11px] text-amber-400">Ashram Flyover Deck</span>
-                </div>
+                  <span className="text-[11px] text-amber-400">Ashram Flyover Deck →</span>
+                </button>
               </div>
 
               <div className="mt-4 pt-3 border-t border-slate-800 text-center">
                 <button
                   onClick={() => onNavigate('tracker')}
-                  className="w-full py-2 bg-slate-800 hover:bg-slate-700 text-slate-200 rounded-lg text-xs font-semibold flex items-center justify-center gap-1.5 transition"
+                  className="w-full py-2 bg-slate-800 hover:bg-cyan-600 text-slate-200 hover:text-white rounded-lg text-xs font-semibold flex items-center justify-center gap-1.5 transition cursor-pointer"
                 >
                   Open Full Interactive Map
-                  <ArrowRight className="w-3.5 h-3.5 text-cyan-400" />
+                  <ArrowRight className="w-3.5 h-3.5" />
                 </button>
               </div>
             </div>
@@ -172,40 +220,68 @@ export function HomePage({ onNavigate, onSelectNotice }) {
         </div>
       </section>
 
-      {/* Live System Metrics Bar */}
+      {/* Live System Metrics Bar (Clickable Filter Shortcuts) */}
       <section className="w-full px-4 sm:px-8 lg:px-12 xl:px-16">
         <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 p-6 bg-slate-900 border border-slate-800 rounded-2xl shadow-xl">
-          <div className="p-4 rounded-xl bg-slate-950 border border-slate-800/80">
-            <div className="text-2xl sm:text-3xl font-black text-cyan-400 font-mono">
+          <button
+            type="button"
+            onClick={() => onNavigate('tracker', { status: 'active' })}
+            className="p-4 rounded-xl bg-slate-950 hover:bg-slate-950/80 border border-slate-800/80 hover:border-cyan-500/50 text-left transition cursor-pointer group"
+          >
+            <div className="text-2xl sm:text-3xl font-black text-cyan-400 font-mono group-hover:scale-105 transition-transform">
               {metrics.activeNotices || 12}
             </div>
-            <div className="text-xs font-bold text-slate-200 mt-1">Active Advisories</div>
-            <div className="text-[11px] text-slate-400">Verified official circulars</div>
-          </div>
+            <div className="text-xs font-bold text-slate-200 mt-1 flex items-center justify-between">
+              Active Advisories
+              <ArrowRight className="w-3.5 h-3.5 text-cyan-400 opacity-0 group-hover:opacity-100 transition-opacity" />
+            </div>
+            <div className="text-[11px] text-slate-400">Click to filter active circulars</div>
+          </button>
 
-          <div className="p-4 rounded-xl bg-slate-950 border border-slate-800/80">
-            <div className="text-2xl sm:text-3xl font-black text-emerald-400 font-mono">
+          <button
+            type="button"
+            onClick={() => onNavigate('tracker')}
+            className="p-4 rounded-xl bg-slate-950 hover:bg-slate-950/80 border border-slate-800/80 hover:border-emerald-500/50 text-left transition cursor-pointer group"
+          >
+            <div className="text-2xl sm:text-3xl font-black text-emerald-400 font-mono group-hover:scale-105 transition-transform">
               {metrics.monitoredRoutes || 14}
             </div>
-            <div className="text-xs font-bold text-slate-200 mt-1">Monitored Routes</div>
-            <div className="text-[11px] text-slate-400">Bus, metro, and rail corridors</div>
-          </div>
+            <div className="text-xs font-bold text-slate-200 mt-1 flex items-center justify-between">
+              Monitored Routes
+              <ArrowRight className="w-3.5 h-3.5 text-emerald-400 opacity-0 group-hover:opacity-100 transition-opacity" />
+            </div>
+            <div className="text-[11px] text-slate-400">Explore bus, metro & rail lines</div>
+          </button>
 
-          <div className="p-4 rounded-xl bg-slate-950 border border-slate-800/80">
-            <div className="text-2xl sm:text-3xl font-black text-teal-400 font-mono">
+          <button
+            type="button"
+            onClick={() => onNavigate('coverage')}
+            className="p-4 rounded-xl bg-slate-950 hover:bg-slate-950/80 border border-slate-800/80 hover:border-teal-500/50 text-left transition cursor-pointer group"
+          >
+            <div className="text-2xl sm:text-3xl font-black text-teal-400 font-mono group-hover:scale-105 transition-transform">
               {metrics.connectedAgencies || 6}
             </div>
-            <div className="text-xs font-bold text-slate-200 mt-1">Connected Agencies</div>
-            <div className="text-[11px] text-slate-400">State RTCs & metro authorities</div>
-          </div>
+            <div className="text-xs font-bold text-slate-200 mt-1 flex items-center justify-between">
+              Connected Agencies
+              <ArrowRight className="w-3.5 h-3.5 text-teal-400 opacity-0 group-hover:opacity-100 transition-opacity" />
+            </div>
+            <div className="text-[11px] text-slate-400">View India district directory</div>
+          </button>
 
-          <div className="p-4 rounded-xl bg-slate-950 border border-slate-800/80">
-            <div className="text-2xl sm:text-3xl font-black text-sky-400 font-mono">
+          <button
+            type="button"
+            onClick={() => onNavigate('tracker')}
+            className="p-4 rounded-xl bg-slate-950 hover:bg-slate-950/80 border border-slate-800/80 hover:border-sky-500/50 text-left transition cursor-pointer group"
+          >
+            <div className="text-2xl sm:text-3xl font-black text-sky-400 font-mono group-hover:scale-105 transition-transform">
               {metrics.trackedVehicles || 8}
             </div>
-            <div className="text-xs font-bold text-slate-200 mt-1">Real-time Vehicles</div>
-            <div className="text-[11px] text-slate-400">Active telemetry GPS positions</div>
-          </div>
+            <div className="text-xs font-bold text-slate-200 mt-1 flex items-center justify-between">
+              Real-time Vehicles
+              <ArrowRight className="w-3.5 h-3.5 text-sky-400 opacity-0 group-hover:opacity-100 transition-opacity" />
+            </div>
+            <div className="text-[11px] text-slate-400">Live GPS tracking on map</div>
+          </button>
         </div>
       </section>
 

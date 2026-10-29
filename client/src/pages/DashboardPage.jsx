@@ -3,10 +3,10 @@ import { useAuth } from '../context/AuthContext';
 import { api } from '../api';
 import { NoticeCard } from '../components/NoticeCard';
 import { NoticeDetailModal } from '../components/NoticeDetailModal';
-import { LayoutDashboard, Bell, Heart, MapPin, Bus, ShieldCheck, RefreshCw, CheckCircle, Save, LogOut } from 'lucide-react';
+import { LayoutDashboard, Bell, Heart, MapPin, Bus, ShieldCheck, RefreshCw, CheckCircle, Save, LogOut, LogIn, ArrowRight, Sparkles } from 'lucide-react';
 
 export function DashboardPage({ onNavigate }) {
-  const { user, preferences, savePreferences, logout } = useAuth();
+  const { user, preferences, savePreferences, logout, login } = useAuth();
 
   const [systemHealth, setSystemHealth] = useState(null);
   const [userNotices, setUserNotices] = useState([]);
@@ -14,6 +14,7 @@ export function DashboardPage({ onNavigate }) {
   const [activeNoticeId, setActiveNoticeId] = useState(null);
   const [savingPrefs, setSavingPrefs] = useState(false);
   const [saveSuccess, setSaveSuccess] = useState(false);
+  const [demoLoggingIn, setDemoLoggingIn] = useState(false);
 
   // Editable preferences form state
   const [formState, setFormState] = useState({
@@ -55,8 +56,27 @@ export function DashboardPage({ onNavigate }) {
       .catch(() => {});
   }, [preferences]);
 
+  const handleDemoLogin = async () => {
+    setDemoLoggingIn(true);
+    try {
+      await login('commuter@transitnotice.gov.in', 'TransitPass123!');
+    } catch (err) {
+      alert(`Demo login failed: ${err.message}`);
+    } finally {
+      setDemoLoggingIn(false);
+    }
+  };
+
   const handleSavePreferences = async (e) => {
     e.preventDefault();
+    if (!user) {
+      if (confirm('You are in guest mode. Would you like to sign into the demo commuter account now to save preferences?')) {
+        await handleDemoLogin();
+      } else {
+        return;
+      }
+    }
+
     setSavingPrefs(true);
     setSaveSuccess(false);
     try {
@@ -86,74 +106,116 @@ export function DashboardPage({ onNavigate }) {
       <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 p-6 bg-slate-900 border border-slate-800 rounded-2xl shadow-xl">
         <div className="flex items-center gap-4">
           <div className="w-14 h-14 rounded-2xl bg-gradient-to-tr from-cyan-600 to-blue-700 flex items-center justify-center text-white text-2xl font-bold shadow-lg shadow-cyan-600/30">
-            {user?.username?.charAt(0).toUpperCase() || 'C'}
+            {user ? user?.username?.charAt(0).toUpperCase() : 'G'}
           </div>
           <div>
             <div className="flex items-center gap-2">
               <h1 className="text-xl sm:text-2xl font-black text-slate-100">
-                Welcome back, {user?.username}
+                {user ? `Welcome back, ${user.username}` : 'Commuter Intelligence Dashboard'}
               </h1>
-              <span className="text-[10px] uppercase font-bold px-2 py-0.5 rounded-full bg-cyan-950 text-cyan-400 border border-cyan-800">
-                {user?.role || 'commuter'}
+              <span className={`text-[10px] uppercase font-bold px-2 py-0.5 rounded-full border ${
+                user ? 'bg-cyan-950 text-cyan-400 border-cyan-800' : 'bg-amber-950 text-amber-400 border-amber-800'
+              }`}>
+                {user ? (user.role || 'commuter') : 'Guest Explorer'}
               </span>
             </div>
             <p className="text-xs text-slate-400 mt-1">
-              Personalized transport intelligence dashboard • Monitored Corridor: <strong className="text-cyan-400">{formState.district}, {formState.state}</strong>
+              Personalized transport intelligence • Monitored Corridor: <strong className="text-cyan-400">{formState.district}, {formState.state}</strong>
             </p>
           </div>
         </div>
 
-        <div className="flex items-center gap-3">
+        <div className="flex flex-wrap items-center gap-3">
+          {!user ? (
+            <button
+              onClick={handleDemoLogin}
+              disabled={demoLoggingIn}
+              className="px-4 py-2 bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-500 hover:to-teal-500 text-white rounded-xl text-xs font-bold transition shadow-lg flex items-center gap-1.5 cursor-pointer"
+            >
+              <Sparkles className="w-3.5 h-3.5" />
+              {demoLoggingIn ? 'Logging In...' : 'One-Click Demo Login'}
+            </button>
+          ) : (
+            <button
+              onClick={logout}
+              className="px-4 py-2 bg-slate-800 hover:bg-rose-950/50 hover:text-rose-300 text-slate-300 rounded-xl text-xs font-bold transition border border-slate-700 flex items-center gap-1.5 cursor-pointer"
+            >
+              <LogOut className="w-3.5 h-3.5" />
+              Sign Out
+            </button>
+          )}
+
           <button
-            onClick={() => onNavigate('tracker')}
-            className="px-4 py-2 bg-cyan-600 hover:bg-cyan-500 text-white rounded-xl text-xs font-bold transition shadow-lg flex items-center gap-1.5"
+            onClick={() => onNavigate('tracker', { state: formState.state, district: formState.district })}
+            className="px-4 py-2 bg-cyan-600 hover:bg-cyan-500 text-white rounded-xl text-xs font-bold transition shadow-lg flex items-center gap-1.5 cursor-pointer"
           >
             <Bus className="w-3.5 h-3.5" />
-            Live Map Tracker
-          </button>
-          <button
-            onClick={logout}
-            className="px-4 py-2 bg-slate-800 hover:bg-rose-950/50 hover:text-rose-300 text-slate-300 rounded-xl text-xs font-bold transition border border-slate-700 flex items-center gap-1.5"
-          >
-            <LogOut className="w-3.5 h-3.5" />
-            Sign Out
+            Track Corridor on Map
           </button>
         </div>
       </div>
 
-      {/* Summary Metrics Cards */}
+      {/* Interactive Summary Metrics Cards */}
       <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
-        <div className="p-4 bg-slate-900 border border-slate-800 rounded-2xl">
-          <div className="text-xs font-bold text-slate-400">Relevant Active Advisories</div>
+        <button
+          type="button"
+          onClick={() => onNavigate('tracker', { state: formState.state, district: formState.district })}
+          className="p-4 bg-slate-900 hover:bg-slate-850 border border-slate-800 hover:border-cyan-500/50 rounded-2xl text-left transition cursor-pointer group shadow-lg"
+        >
+          <div className="text-xs font-bold text-slate-400 group-hover:text-cyan-300 flex items-center justify-between">
+            <span>District Advisories</span>
+            <ArrowRight className="w-3.5 h-3.5 text-cyan-400 opacity-0 group-hover:opacity-100 transition-opacity" />
+          </div>
           <div className="text-2xl font-black text-cyan-400 font-mono mt-1">
             {userNotices.length}
           </div>
-          <div className="text-[11px] text-slate-400 mt-1">In your preferred district</div>
-        </div>
+          <div className="text-[11px] text-slate-400 mt-1">In {formState.district} corridor</div>
+        </button>
 
-        <div className="p-4 bg-slate-900 border border-slate-800 rounded-2xl">
-          <div className="text-xs font-bold text-slate-400">Total System Active</div>
+        <button
+          type="button"
+          onClick={() => onNavigate('tracker', { status: 'active' })}
+          className="p-4 bg-slate-900 hover:bg-slate-850 border border-slate-800 hover:border-emerald-500/50 rounded-2xl text-left transition cursor-pointer group shadow-lg"
+        >
+          <div className="text-xs font-bold text-slate-400 group-hover:text-emerald-300 flex items-center justify-between">
+            <span>Total System Active</span>
+            <ArrowRight className="w-3.5 h-3.5 text-emerald-400 opacity-0 group-hover:opacity-100 transition-opacity" />
+          </div>
           <div className="text-2xl font-black text-emerald-400 font-mono mt-1">
             {systemHealth?.metrics?.activeNotices || 12}
           </div>
           <div className="text-[11px] text-slate-400 mt-1">Across all connected states</div>
-        </div>
+        </button>
 
-        <div className="p-4 bg-slate-900 border border-slate-800 rounded-2xl">
-          <div className="text-xs font-bold text-slate-400">Recently Revised / Extended</div>
+        <button
+          type="button"
+          onClick={() => onNavigate('tracker', { status: 'revised' })}
+          className="p-4 bg-slate-900 hover:bg-slate-850 border border-slate-800 hover:border-amber-500/50 rounded-2xl text-left transition cursor-pointer group shadow-lg"
+        >
+          <div className="text-xs font-bold text-slate-400 group-hover:text-amber-300 flex items-center justify-between">
+            <span>Recently Revised</span>
+            <ArrowRight className="w-3.5 h-3.5 text-amber-400 opacity-0 group-hover:opacity-100 transition-opacity" />
+          </div>
           <div className="text-2xl font-black text-amber-400 font-mono mt-1">
             {recentChangedNotices.length}
           </div>
           <div className="text-[11px] text-slate-400 mt-1">Audited hash modifications</div>
-        </div>
+        </button>
 
-        <div className="p-4 bg-slate-900 border border-slate-800 rounded-2xl">
-          <div className="text-xs font-bold text-slate-400">Connected Live Feeds</div>
+        <button
+          type="button"
+          onClick={() => onNavigate('coverage')}
+          className="p-4 bg-slate-900 hover:bg-slate-850 border border-slate-800 hover:border-teal-500/50 rounded-2xl text-left transition cursor-pointer group shadow-lg"
+        >
+          <div className="text-xs font-bold text-slate-400 group-hover:text-teal-300 flex items-center justify-between">
+            <span>Connected Live Feeds</span>
+            <ArrowRight className="w-3.5 h-3.5 text-teal-400 opacity-0 group-hover:opacity-100 transition-opacity" />
+          </div>
           <div className="text-2xl font-black text-teal-400 font-mono mt-1">
             {systemHealth?.agencies?.length || 6}
           </div>
           <div className="text-[11px] text-slate-400 mt-1">100% verified status</div>
-        </div>
+        </button>
       </div>
 
       {/* Two Columns: Preferences Manager & Advisories List */}
@@ -300,9 +362,13 @@ export function DashboardPage({ onNavigate }) {
 
             <div className="divide-y divide-slate-800/80">
               {systemHealth?.agencies?.map(agency => (
-                <div key={agency.id} className="py-2.5 flex items-center justify-between">
+                <div 
+                  key={agency.id} 
+                  onClick={() => onNavigate('coverage')}
+                  className="py-2.5 flex items-center justify-between hover:bg-slate-800/50 px-2 rounded-lg transition cursor-pointer group"
+                >
                   <div>
-                    <div className="font-bold text-slate-200">{agency.name}</div>
+                    <div className="font-bold text-slate-200 group-hover:text-cyan-300 transition-colors">{agency.name}</div>
                     <div className="text-[10px] text-slate-400">{agency.status_message}</div>
                   </div>
                   <div className="text-right">
