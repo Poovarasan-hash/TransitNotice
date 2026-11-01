@@ -52,7 +52,7 @@ export function Navbar({ activeTab, onNavigate }) {
   ];
 
   return (
-    <header className="sticky top-0 z-[1500] bg-white/95 backdrop-blur-md border-b border-slate-200 w-full shadow-xs">
+    <header className="sticky top-0 z-[1500] bg-white/90 backdrop-blur-md border-b border-white/60 w-full shadow-sm">
       <div className="w-full px-4 sm:px-8 lg:px-12 h-16 flex items-center justify-between">
         
         {/* Brand / Logo */}

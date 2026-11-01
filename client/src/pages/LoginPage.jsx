@@ -37,7 +37,7 @@ export function LoginPage({ onNavigate }) {
 
   return (
     <div className="min-h-[80vh] flex items-center justify-center px-4 py-12">
-      <div className="w-full max-w-md bg-white border border-slate-200 rounded-3xl p-8 shadow-xl relative overflow-hidden">
+      <div className="w-full max-w-md bg-white/95 backdrop-blur-md border border-white/80 rounded-3xl p-8 shadow-2xl relative overflow-hidden">
         {/* Subtle top teal bar */}
         <div className="absolute top-0 left-0 right-0 h-1.5 bg-gradient-to-r from-teal-500 via-cyan-500 to-blue-600"></div>
 

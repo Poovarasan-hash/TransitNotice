@@ -3,7 +3,7 @@ import { Bus, ShieldCheck, Heart, ExternalLink, RefreshCw, AlertCircle } from 'l
 
 export function Footer({ onNavigate }) {
   return (
-    <footer className="bg-white border-t border-slate-200 text-slate-600 text-xs w-full shadow-sm">
+    <footer className="bg-white/90 backdrop-blur-md border-t border-white/60 text-slate-600 text-xs w-full shadow-lg">
       <div className="w-full px-4 sm:px-8 lg:px-12 py-10">
         <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
           {/* Col 1: About */}

@@ -182,7 +182,7 @@ export function TrackerPage({ initialParams = {} }) {
   };
 
   return (
-    <div className="w-full px-4 sm:px-8 lg:px-12 py-8 space-y-8 bg-[#F8FAFC] text-slate-900">
+    <div className="w-full px-4 sm:px-8 lg:px-12 py-8 space-y-8 bg-transparent text-slate-900">
       
       {/* Top Header & Refresh Action Bar */}
       <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">

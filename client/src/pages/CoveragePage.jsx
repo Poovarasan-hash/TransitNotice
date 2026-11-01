@@ -91,7 +91,7 @@ export function CoveragePage({ onSelectDistrict }) {
   ];
 
   return (
-    <div className="w-full px-4 sm:px-8 lg:px-12 py-8 space-y-8 bg-[#F8FAFC] text-slate-900">
+    <div className="w-full px-4 sm:px-8 lg:px-12 py-8 space-y-8 bg-transparent text-slate-900">
       {/* Page Header */}
       <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
         <div>

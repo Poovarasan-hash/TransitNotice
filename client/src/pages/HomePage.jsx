@@ -85,18 +85,12 @@ export function HomePage({ onNavigate, onSelectNotice }) {
   });
 
   return (
-    <div className="space-y-12 pb-16 bg-[#F8FAFC] text-slate-900">
+    <div className="space-y-12 pb-16 bg-transparent text-slate-900">
       
-      {/* HERO SECTION: USER TRANSIT PANORAMA BACKGROUND */}
-      <section 
-        className="relative overflow-hidden border-b border-slate-200 pt-12 pb-16 shadow-sm bg-cover bg-bottom bg-no-repeat"
-        style={{
-          backgroundImage: `url('/hero-transit-bg.png')`,
-          backgroundColor: '#F8FAFC'
-        }}
-      >
-        {/* Subtle light overlay so headline & search matrix remain 100% crystal-clear while buses, metro, bridges & transit route lines shine through */}
-        <div className="absolute inset-0 bg-gradient-to-b from-white/80 via-white/55 to-white/85 pointer-events-none"></div>
+      {/* HERO SECTION: FLOATING OVER THE SUNSET BUS HIGHWAY BACKGROUND */}
+      <section className="relative overflow-hidden pt-10 pb-12">
+        {/* Soft atmospheric gradient to guarantee 100% crystal-clear readability for title & RedBus search matrix */}
+        <div className="absolute inset-0 bg-gradient-to-b from-white/70 via-white/45 to-white/75 pointer-events-none"></div>
         
         <div className="relative w-full px-4 sm:px-8 lg:px-12 space-y-8">
           
@@ -232,18 +226,18 @@ export function HomePage({ onNavigate, onSelectNotice }) {
           </div>
 
           {/* Real Transport Trust Badges */}
-          <div className="flex flex-wrap items-center justify-center gap-8 text-sm text-slate-600 pt-2 font-medium">
-            <span className="flex items-center gap-2 text-slate-700 font-bold">
+          <div className="flex flex-wrap items-center justify-center gap-6 text-sm text-slate-800 pt-2 px-6 py-2.5 rounded-full bg-white/85 backdrop-blur-md border border-white/70 shadow-sm max-w-fit mx-auto">
+            <span className="flex items-center gap-2 text-slate-800 font-bold">
               <ShieldCheck className="w-5 h-5 text-emerald-600" />
               100% Official Agency Feeds Only
             </span>
             <span>•</span>
-            <span className="flex items-center gap-2 text-slate-700 font-bold">
+            <span className="flex items-center gap-2 text-slate-800 font-bold">
               <RefreshCw className="w-5 h-5 text-teal-600" />
               Idempotent SHA-256 Hash Auditing
             </span>
             <span>•</span>
-            <span className="flex items-center gap-2 text-slate-700 font-bold">
+            <span className="flex items-center gap-2 text-slate-800 font-bold">
               <MapPin className="w-5 h-5 text-amber-600" />
               Transparent District Coverage Directory
             </span>
@@ -252,9 +246,9 @@ export function HomePage({ onNavigate, onSelectNotice }) {
         </div>
       </section>
 
-      {/* SYSTEM METRICS BAR (CRISP WHITE CARDS) */}
+      {/* SYSTEM METRICS BAR (CRISP FROSTED WHITE CARDS) */}
       <section className="w-full px-4 sm:px-8 lg:px-12">
-        <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 p-6 bg-white border border-slate-200 rounded-2xl shadow-xs">
+        <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 p-6 bg-white/95 backdrop-blur-md border border-white/70 rounded-3xl shadow-xl">
           <button
             type="button"
             onClick={() => onNavigate('tracker', { status: 'active' })}

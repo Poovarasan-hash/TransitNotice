@@ -100,7 +100,7 @@ export function DashboardPage({ onNavigate }) {
   };
 
   return (
-    <div className="w-full px-4 sm:px-8 lg:px-12 py-8 space-y-8 bg-[#F8FAFC] text-slate-900">
+    <div className="w-full px-4 sm:px-8 lg:px-12 py-8 space-y-8 bg-transparent text-slate-900">
       
       {/* Top Greeting & User Overview (Clean White Card) */}
       <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 p-6 sm:p-8 bg-white border border-slate-200 rounded-3xl shadow-sm text-slate-900">
